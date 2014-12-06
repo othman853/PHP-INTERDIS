@@ -14,7 +14,7 @@
 				<span class="menu-icon fa fa-stethoscope"></span>	
 				<span class="menu-legend">Manter Médico</span>	
 			</div>
-			<div class="menu-item">
+			<div id="manter-paciente" class="menu-item">
 				<span class="menu-icon fa fa-user"></span>		
 				<span class="menu-legend">Manter Paciente</span>	
 			</div>
@@ -34,5 +34,5 @@
 </body>	
 <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="js/jquery.mask.min.js"></script>
-<script type="text/javascript" src="js/listar.js"></script>
+<script type="text/javascript" src="js/menu.js"></script>
 </html>
