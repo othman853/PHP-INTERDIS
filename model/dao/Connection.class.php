@@ -4,10 +4,10 @@ class Connection {
 
 	private static $conn;
 	private static $hostname		="localhost"; //ou 127.0.0.1  ip padrao de servidor
-	private static $dataBaseName	="DBCONTATOS";
+	private static $dataBaseName	="JOHAN_YASSER_INTERDIS";
 	private static $userName		="admin";
 	private static $pwd				="masterkey";
-	private static $dataBaseType	= "mysql";
+	private static $dataBaseType	="mysql";
 	
 public static function connect(){		
 		try

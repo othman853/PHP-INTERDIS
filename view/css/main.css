@@ -20,7 +20,7 @@ body{
 	text-align: right;
 }
 
-.input{
+.form-group input{
 	border:0;
 	width: 70%;	
 	background-color: inherit;	

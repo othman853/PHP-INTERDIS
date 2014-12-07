@@ -1,21 +1,10 @@
 <?php
 
-include_once '../model/ContatoBo.class.php';
-
-class ListarCtr{
-
-	private $bo;
-
-	public function __construct(){
-
-		$this->bo = new ContatoBo(FALSE);
-
-	}
-
-	public function getListaDeContatos(){		
+class MenuCtr{
+	
+	public function redirecionar($pagina){		
 		return $this->bo->getListaDeContatos();
 	}
-
 }
 
 ?>

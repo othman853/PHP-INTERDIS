@@ -27,7 +27,7 @@
 			</div>
 			<div class="menu-item">
 				<span class="menu-icon fa fa-file"></span>		
-				<span class="menu-legend">Manter Consultas</span>	
+				<span class="menu-legend">Marcar Consultas</span>	
 			</div>
 		</div>		
 	</div>	

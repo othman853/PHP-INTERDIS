@@ -1,6 +1,6 @@
 <?php
 
-include_once 'model/LoginBo.class.php';
+include_once 'model/bo/LoginBo.class.php';
 
 class LoginCtr{
 

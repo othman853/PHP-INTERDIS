@@ -1,9 +1,9 @@
 <?php
 include_once 'Dao.class.php';
 
-class LoginDao extends Dao{
+class PacienteDao extends Dao{
 	public function __construct(){
-		parent::__construct('usuario');
+		parent::__construct('PACIENTE');
 	}
 }
 

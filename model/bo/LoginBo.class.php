@@ -1,6 +1,6 @@
 <?php
-include_once 'model/LoginVd.class.php';
-include_once 'model/LoginDao.class.php';
+include_once 'model/vd/LoginVd.class.php';
+include_once 'model/dao/LoginDao.class.php';
 
 class LoginBo{
 
@@ -22,17 +22,17 @@ class LoginBo{
 		$login = LoginVd::getLogin();
 		$senha = md5(LoginVd::getSenha());
 
-		$this->dao->find('cd_usuario, senha',"cd_usuario = '" . $login . "'");
-		$usuario = $this->dao->getResultSet();
+		$this->dao->find('usuario, senha',"usuario = '" . $login . "'");
+		$usuarios = $this->dao->getResultSet();
 
-		if($usuario == NULL){
+		if($usuarios == NULL){
 			return false;
 		}
 
-		foreach ($usuario as $u) {
-			if($u['cd_usuario'] == $login &&
-			   $u['senha']   == $senha){
-			   	$_SESSION['cd_usuario'] = $u['cd_usuario'];
+		foreach ($usuarios as $usuario) {
+			if($usuario['usuario'] == $login &&
+			   $usuario['senha']   == $senha){
+			   	$_SESSION['usuario'] = $usuario['usuario'];
 				return true;
 			}
 		}		
