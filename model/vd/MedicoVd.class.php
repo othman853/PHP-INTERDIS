@@ -61,7 +61,7 @@ class MedicoVd{
 
 	private static function normalizarDados(){
 
-		$normalizador = array('(' => '', '-' =>'' );
+		$normalizador = array('(' => '', ')' =>'', '-' =>'' );
 
 		self::$celular  = strtr(self::$celular, $normalizador);
 		self::$telefone = strtr(self::$telefone, $normalizador);

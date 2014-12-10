@@ -43,7 +43,8 @@ class PacienteVd{
 	}
 
 	private static function normalizarDados(){
-		$normalizador = array('(' => '', '-' =>'');
+		$normalizador = array('(' => '', ')'=>'', '-' =>'');
+		
 		$dataSeparada = explode("/", self::$dtNascimento);
 
 		$dataSql = $dataSeparada[2] . "-" . $dataSeparada[0] . "-" . $dataSeparada[1];

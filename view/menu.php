@@ -21,13 +21,13 @@
 		</div>
 
 		<div class="menu-line">
-			<div class="menu-item">
+			<div id="agendas" class="menu-item">
 				<span class="menu-icon fa fa-calendar"></span>		
-				<span class="menu-legend">Agendas Médicas</span>	
+				<span class="menu-legend">Agendas</span>	
 			</div>
-			<div class="menu-item">
+			<div id="consultas" class="menu-item">
 				<span class="menu-icon fa fa-file"></span>		
-				<span class="menu-legend">Marcar Consultas</span>	
+				<span class="menu-legend">Consultas</span>	
 			</div>
 		</div>		
 	</div>	

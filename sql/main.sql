@@ -40,8 +40,9 @@ constraint PK_MEDICO primary key (crm)
 
 CREATE TABLE AGENDA(
 crm bigint not null,
-data_disponivel date,
-periodo_disponivel tinyint,
+dia date,
+hora time,
+estado tinyint,
 
 constraint FK_CRM_AGENDA foreign key (crm) references MEDICO (crm)
 );
@@ -70,6 +71,21 @@ CREATE VIEW VW_ESPECIALIDADE_CRM(crm, especialidade) AS
 	INNER JOIN ESPEC_MEDICO as em on  em.crm = m.crm
 	INNER JOIN ESPECIALIDADE_MEDICA e on e.cod_espec = em.cod_espec;
 
+CREATE VIEW VW_CONSULTA(nome_medico, nome_paciente, data_consulta, hora_consulta) AS
+	SELECT M.nome, P.nome, C.data_consulta, C.hora_consulta
+	FROM CONSULTA C
+	INNER JOIN PACIENTE P ON P.cod_paciente = C.cod_paciente
+	INNER JOIN MEDICO M ON M.crm = C.crm_medico;
+    
+CREATE VIEW VW_AGENDA_MEDICO(crm, nome_medico, dia, hora, estado, descricao_estado) AS
+	SELECT A.crm, M.nome, A.dia, A.hora, A.estado, CASE A.estado
+												   WHEN 0 THEN "DISPONIVEL"
+                                                   WHEN 1 THEN "PENDENTE"
+                                                   WHEN 2 THEN "INDISPONIVEL"
+                                                   END 
+	FROM AGENDA A
+	INNER JOIN MEDICO M ON M.crm = A.CRM;
+    
 INSERT INTO USUARIO (usuario, senha) VALUES ('usuario', md5('senha'));
 
 INSERT INTO ESPECIALIDADE_MEDICA (descricao) VALUES('Pediatra');
@@ -98,8 +114,20 @@ INSERT INTO ESPEC_MEDICO(crm, cod_espec) VALUES(2520,4);
 INSERT INTO ESPEC_MEDICO(crm, cod_espec) VALUES(3698,6); 
 INSERT INTO ESPEC_MEDICO(crm, cod_espec) VALUES(9447,8); 
 
+INSERT INTO AGENDA(crm, dia, hora, estado)
+VALUES 	(1781, '2014-10-10', '10:00:00', 1),
+		(2241, '2015-02-12', '16:00:00', 1),
+		(111,  '2014-09-30', '12:00:00', 0),
+		(3592, '2014-09-30', '13:00:00', 2),
+		(2520, '2014-09-30', '14:00:00', 0),
+		(3698, '2014-09-30', '17:00:00', 2);
+
 INSERT INTO PACIENTE (nome, endereco, telefone, email, dt_nascimento ) 
 VALUES ('Mohammed Mamebud', 'Av. Assis Brasil, 1568', '5130479896', 'mohammed.mamebud@gmail.com', '1990-09-05');
 
 INSERT INTO PACIENTE (nome, endereco, telefone, email, dt_nascimento ) 
 VALUES ('Najla Rachid', 'Av. Plínio Brasil Milano, 400', '5134589657', 'najla.rachid@gmail.com', '1993-10-04');
+
+INSERT INTO CONSULTA (crm_medico, cod_paciente, data_consulta, hora_consulta)
+VALUES 	(2241, 1, '2014-09-30', '13:00:00'),
+		(3698, 2, '2014-09-30', '17:00:00');

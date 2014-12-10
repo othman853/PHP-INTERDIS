@@ -7,4 +7,12 @@ $(document).ready(function(){
 		window.location.href="medico.php";
 	});
 
+	$("#agendas").click(function(){
+		window.location.href="agenda.php";
+	});
+
+	$("#consultas").click(function(){
+		window.location.href="consulta.php";
+	});
+
 });

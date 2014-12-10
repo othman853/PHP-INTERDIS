@@ -22,30 +22,32 @@
 
 				foreach($medicos as $medico){ 
 				?>
-					<article id="form-wraper">
-					
+				<article id="form-wraper">
+
 					<div class="form-group">
-						<label>CRM:</label>						
-						<span class="input"><?php echo $medico['crm'];?></span>
+						<label>CRM:</label>
+						<input type="text" id="crm" name="crm" value=<?php echo "'" . $medico['crm'] . "'";?> disabled />				
 					</div>
-						<div class="form-group">
-						<label>Nome:</label>						
-						<span class="input"><?php echo $medico['nome'];?></span>
+
+					<div class="form-group">
+						<label>Nome:</label>
+						<input type="text" id="nome" name="nome"  value=<?php echo "'" . $medico['nome'] . "'";?> disabled/>				
 					</div>
-						<div class="form-group">
-						<label>Telefone:</label>
-						<span id="telefone" class="input"><?php echo $medico['telefone'];?></span>
-					</div>
-						<div class="form-group">
-						<label>Celular:</label>
-						<span class="input"><?php echo $medico['celular'];?></span>
-					</div>
-						<div class="form-group">
+
+					<div class="form-group">
 						<label>Email:</label>
-						<span class="input"><?php echo $medico['email'];?></span>
-					</div>					
-					
-					
+						<input type="text" id="email" name="email" value=<?php echo "'" . $medico['email'] . "'";?> disabled/>				
+					</div>
+
+					<div class="form-group">
+						<label>Celular:</label>
+						<input type="text" id="celular" name="celular" value=<?php echo "'" . $medico['celular'] . "'";?> disabled/>				
+					</div>
+
+					<div class="form-group">
+						<label>Telefone:</label>
+						<input type="text" id="telefone" name="telefone" value=<?php echo "'" . $medico['telefone'] . "'";?> disabled/>				
+					</div>						
 					<span class='form-component table-column list-button update'><a href= <?php echo strtr($medico['nome'], array(" " => "%20"));?> >Alterar</a></span>
 					<span class='form-component table-column list-button delete'><a href= <?php echo "excluirMedico.php?id=" . $medico['crm'];?> >Excluir</a></span>				
 				</article>
@@ -65,5 +67,5 @@
 </body>	
 <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="js/jquery.mask.min.js"></script>
-<script type="text/javascript" src="js/listar.js"></script>
+<script type="text/javascript" src="js/cadastro.js"></script>
 </html>
