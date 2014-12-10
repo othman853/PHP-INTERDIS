@@ -44,6 +44,7 @@ dia date,
 hora time,
 estado tinyint,
 
+constraint PK_AGENDA primary key (crm, dia, hora),
 constraint FK_CRM_AGENDA foreign key (crm) references MEDICO (crm)
 );
 
@@ -56,11 +57,13 @@ constraint FK_ESPEC_ESPEC_MEDICO foreign key (cod_espec) references ESPECIALIDAD
 );
 
 CREATE TABLE CONSULTA(
+cod_consulta bigint not null auto_increment,
 crm_medico bigint not null,
 cod_paciente bigint not null,
 data_consulta date not null,
 hora_consulta time not null,
 
+constraint PK_CONSULTa primary key(cod_consulta),
 constraint FK_CRM_CONSULTA foreign key (crm_medico) references MEDICO (crm),
 constraint FK_COD_PACIENTE_CONSULTA foreign key (cod_paciente) references PACIENTE(cod_paciente)
 );
@@ -71,8 +74,8 @@ CREATE VIEW VW_ESPECIALIDADE_CRM(crm, especialidade) AS
 	INNER JOIN ESPEC_MEDICO as em on  em.crm = m.crm
 	INNER JOIN ESPECIALIDADE_MEDICA e on e.cod_espec = em.cod_espec;
 
-CREATE VIEW VW_CONSULTA(nome_medico, nome_paciente, data_consulta, hora_consulta) AS
-	SELECT M.nome, P.nome, C.data_consulta, C.hora_consulta
+CREATE VIEW VW_CONSULTA(cod_consulta, nome_medico, nome_paciente, data_consulta, hora_consulta) AS
+	SELECT C.cod_consulta, M.nome, P.nome, C.data_consulta, C.hora_consulta
 	FROM CONSULTA C
 	INNER JOIN PACIENTE P ON P.cod_paciente = C.cod_paciente
 	INNER JOIN MEDICO M ON M.crm = C.crm_medico;

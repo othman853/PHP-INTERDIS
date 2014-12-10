@@ -54,7 +54,7 @@
 							if($agenda['estado'] == 0){
 						?>
 								<span class='form-component table-column list-button update'>
-									<a href= <?php echo "marcarConsulta.php?id=".$agenda['crm'];?> >Marcar</a>
+									<a href= <?php echo "marcarConsulta.php?id=".$agenda['cod_agenda'] . "&hora=" . $agenda['hora'] . "&data=" . $agenda['data'];?> >Marcar</a>
 								</span>
 						<?php
 							}

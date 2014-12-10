@@ -11,7 +11,7 @@ class AgendaBo{
 	}
 
 	public function getLista(){
-			$fields = "crm, nome_medico, dia, hora, estado, descricao_estado";
+			$fields = "cod_consulta, crm, nome_medico, dia, hora, estado, descricao_estado";
 			$filter = "";
 
 			$this->dao->find($fields, $filter);
