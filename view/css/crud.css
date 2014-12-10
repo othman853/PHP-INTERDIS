@@ -1,0 +1,53 @@
+header{
+	background-color: #ecf0f1;
+	width: 100%;
+	height: 40px;
+	position: fixed;	 	
+	top:0;		
+	text-align: center;	
+}
+
+header h3{	
+	color: #2c3e50;
+	vertical-align: center;
+	float: left;
+
+}
+
+.button-add{
+	float: left;
+	vertical-align: bottom;
+	width: auto;
+	height: 100%;
+	margin-right: 15px;
+	padding: 5px;
+}
+
+.list-button{
+	height: 30px;
+	line-height: 30px;
+	vertical-align: center;
+	cursor: pointer;
+	padding: 5px;
+	font-family: sans-serif;
+	font-weight: lighter;
+}
+	.list-button a{
+		color: inherit;
+		text-decoration: none;
+	}
+
+.delete{
+	background-color: #c0392b;	
+	color: #ecf0f1;	
+
+}	
+
+.update{
+	background-color: #3498db;	
+	color: #ecf0f1;
+	height: 30px;
+	line-height: 30px;
+	vertical-align: center;
+	cursor: pointer;
+}

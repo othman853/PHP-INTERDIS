@@ -10,7 +10,7 @@
 <body>
 	<div id="menu">						
 		<div class="menu-line">
-			<div class="menu-item">
+			<div id="manter-medico" class="menu-item">
 				<span class="menu-icon fa fa-stethoscope"></span>	
 				<span class="menu-legend">Manter Médico</span>	
 			</div>

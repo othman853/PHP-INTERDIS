@@ -3,4 +3,8 @@ $(document).ready(function(){
 		window.location.href="paciente.php";
 	});
 
+	$("#manter-medico").click(function(){
+		window.location.href="medico.php";
+	});
+
 });

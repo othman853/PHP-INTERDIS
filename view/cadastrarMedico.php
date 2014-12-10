@@ -1,0 +1,63 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Cadastrar Medico</title>
+
+		<?php include_once '../controller/MedicoCtr.class.php';?>
+		<?php include_once '../model/vd/MedicoVd.class.php'; ?>
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/cadastro.css">
+
+	</head>
+	<body>
+		<div id="form-wraper">
+			<form action="cadastrarMedico.php" method="POST">
+				<h1>Cadastrar Médico </h1>
+				<div class="form-group">
+					<label>CRM:</label>
+					<input type="text" id="crm" name="crm" placeholder="Ex: 2945"/>				
+				</div>
+
+				<div class="form-group">
+					<label>Nome:</label>
+					<input type="text" id="nome" name="nome" placeholder="Ex: Maria Silva"/>				
+				</div>
+
+				<div class="form-group">
+					<label>Email:</label>
+					<input type="text" id="email" name="email" placeholder="Ex: maria.silva@gmail.com"/>				
+				</div>
+
+				<div class="form-group">
+					<label>Celular:</label>
+					<input type="text" id="celular" name="celular" placeholder="(99)9999-9999"/>				
+				</div>
+
+				<div class="form-group">
+					<label>Telefone:</label>
+					<input type="text" id="telefone" name="telefone" placeholder="Ex: (51)9999-9999"/>				
+				</div>			
+
+				<input type="submit" class="button" name="cadastrar" value="Cadastrar"/>
+
+			</form>		
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="js/jquery.mask.min.js"></script>
+	<script type="text/javascript" src="js/cadastro.js"></script>
+</html>
+
+<?php
+if(isset($_POST['cadastrar'])){
+	try{
+		MedicoVd::validar();
+		$ctr = new MedicoCtr();
+		$ctr->salvar();
+	}catch(Exception $ex){
+?>
+		<div class="message fail"> <?php echo $ex->getMessage(); ?></div> 
+<?php
+	}
+}
+?>

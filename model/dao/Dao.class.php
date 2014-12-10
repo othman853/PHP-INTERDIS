@@ -86,7 +86,7 @@ abstract class Dao {
 		}
 
 		//montar o comando sql para EXCLUSAO
-		$sql = "DELETE FROM $this->tableName $filter";		
+		$sql = "DELETE FROM $this->tableName $filter";				
 		
 		//comando para executar a query no banco de dados
 		Connection::getConn()->beginTransaction();
@@ -118,7 +118,8 @@ abstract class Dao {
 		}
 
 		//montar o comando sql para CONSULTA
-		$sql = "SELECT $columns FROM $this->tableName $filter";				
+		$sql = "SELECT $columns FROM $this->tableName $filter";	
+		
 		$this->rs = Connection::getConn()->query($sql);
 		
 		$this->rowsSelAffected = $this->rs->rowCount();
@@ -164,10 +165,8 @@ abstract class Dao {
 			return NULL;	
 		}
 		
-		while($row=$this->rs->fetch()){
-			
-			$return[] = $row;
-				
+		while($row=$this->rs->fetch()){			
+			$return[] = $row;				
 		}
 			
 		return $return;

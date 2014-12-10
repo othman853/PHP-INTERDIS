@@ -15,16 +15,22 @@ class PacienteCtr{
 	}
 
 	public function salvar(){
-		return $this->bo->salvar();
+		$this->bo->salvar();
+		header("Location: paciente.php");
 	}
 
 	public function alterar(){
-		return $this->bo->alterar();
+		$this->bo->alterar();
+		header("Location: paciente.php");
 	}
 
-	public function excluir(){
-		//Busca Paciente para exclusao
-		//Redireciona para listagem
+	public function buscar($cod_paciente){
+		return $this->bo->buscar($cod_paciente);
+	}
+
+	public function excluir($codPaciente){
+		$this->bo->excluir($codPaciente);
+		header("Location: paciente.php");
 	}
 }
 

@@ -7,26 +7,6 @@ body{
 	background-color: #34495e;
 }
 
-.form-group{
-	background-color: #ecf0f1;	
-	font-family: sans-serif;
-	font-weight: lighter;
-	margin-bottom: 10px;
-}
-
-.form-group label{
-	display: inline-block;	
-	width: 20%;	
-	text-align: right;
-}
-
-.form-group input{
-	border:0;
-	width: 70%;	
-	background-color: inherit;	
-	font-weight: lighter;
-}
-
 .message{
 	height: 40px;
 	line-height: 40px;
@@ -61,6 +41,7 @@ body{
 	font-family: sans-serif;
 	width: 100px;	
 	font-weight: lighter;
+	padding: 5px;
 }
 
 .title{
@@ -71,9 +52,3 @@ body{
 	display: block;
 	width: 100%;
 }
-
-
-
-
-
-	

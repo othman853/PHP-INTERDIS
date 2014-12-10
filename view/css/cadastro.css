@@ -1,0 +1,42 @@
+#form-wraper{
+	width: 85%;	
+	margin:0 auto;
+	margin-top: 100px;
+	top: 50%;
+	padding: 15px;
+	background-color: #2c3e50;
+	margin-bottom: 20px;
+}
+
+	#form-wraper h1{
+		font-family: sans-serif;
+		font-weight: lighter;
+		color:#ecf0f1;
+	}
+
+.form-group{
+	background-color: #ecf0f1;	
+	font-family: sans-serif;
+	font-weight: lighter;
+	margin-bottom: 10px;
+	height: 40px;
+	line-height: 40px;
+}
+
+.form-group label{
+	display: inline-block;	
+	width: 20%;	
+	text-align: right;
+	font-size: 20px;
+	vertical-align: center;
+}
+
+.form-group input, .form-group .input{
+	border:0;
+	width: 70%;	
+	background-color: inherit;	
+	font-weight: lighter;
+	font-size: 20px;
+	vertical-align: center;
+	font-family: sans-serif;
+}

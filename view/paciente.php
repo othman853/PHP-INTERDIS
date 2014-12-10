@@ -2,7 +2,8 @@
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="css/main.css" type="text/css">
-	<link rel="stylesheet" href="css/paciente.css" type="text/css">
+	<link rel="stylesheet" href="css/crud.css" type="text/css">
+	<link rel="stylesheet" href="css/cadastro.css" type="text/css">
 	<?php include_once '../controller/PacienteCtr.class.php'; ?>
 </head>
 <body>
@@ -10,15 +11,10 @@
 		<form action="cadastrarPaciente.php" method="post">
 			<input type="submit" name="adicionar" class="form-component button button-add" value="Cadastrar Paciente"/>			
 		</form>		
-	</header>		
+		<!-- <span><a href="menu.php" class="form-component button button-add">Menu</a></span> -->
+	</header>			
 	
-	<div id="table">						
-		<ul class="table-row">
-			<li class='form-component table-column' for='nome'>Nome</li> 
-			<li class='form-component table-column' for='nome'>Apelido</li> 
-			<li class='form-component table-column' for='nome'>Telefone/Celular</li>				
-		</ul>			
-
+	<div id="table">								
 		<?php 
 			try{
 
@@ -29,18 +25,33 @@
 				if($pacientes != NULL){
 
 					foreach($pacientes as $paciente){ 
-					?>
-						<ul class="table-row">
-							<li class='form-component table-column'><?php echo $paciente['nome']; ?></li> 
-							<li class='form-component table-column'><?php echo $paciente['endereco']; ?></li> 
-							<li class='form-component table-column'><?php echo $paciente['email']; ?></li> 
-							<li class='form-component table-column'><?php echo $paciente['dt_nascimento']; ?></li> 
+					?>	
+					<article id="form-wraper">
+						<div class="form-group">
+							<label>Nome:</label>						
+							<span class="input"><?php echo $paciente['nome'];?></span>
+						</div>
 
-							<!-- <li class='form-component table-column'><span class="telefone"><?php echo $paciente['telefone']; ?> </span>/<span class="celular"><?php echo $paciente['celular']; ?></span></li>							 -->
 
-							<li class='form-component table-column list-button update'><a href= <?php echo strtr($paciente['nome'], array(" " => "%20"));?> >Alterar</a></li>
-							<li class='form-component table-column list-button delete'><a href= <?php echo strtr($paciente['nome'], array(" " => "%20"));?> >Excluir</a></li>				
-						</ul>			
+						<div class="form-group">
+							<label>Email:</label>
+							<span class="input"><?php echo $paciente['email'];?></span>
+						</div>
+						
+						<div class="form-group">
+							<label>Telefone:</label>
+							<span id="telefone" class="input"><?php echo $paciente['telefone'];?></span>
+						</div>
+						
+						<div class="form-group">
+							<label>Endereço:</label>
+							<span class="input"><?php echo $paciente['endereco'];?></span>
+						</div>
+
+						<span class='form-component table-column list-button update'><a href= <?php echo "cadastrarPaciente.php?id=".$paciente['cod_paciente'];?> >Alterar</a></span>
+						<span class='form-component table-column list-button delete'><a href= <?php echo "excluirPaciente.php?id=".$paciente['cod_paciente'];?> >Excluir</a></span>				
+					</article>
+						
 		
 		  <?php 
 					} 
@@ -64,5 +75,5 @@
 </body>	
 <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="js/jquery.mask.min.js"></script>
-<script type="text/javascript" src="js/listar.js"></script>
+<script type="text/javascript" src="js/cadastro.js"></script>
 </html>

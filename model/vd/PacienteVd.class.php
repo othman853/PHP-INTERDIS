@@ -2,11 +2,11 @@
 
 class PacienteVd{
 
-	private $nome;
-	private $endereco;
-	private $telefone;
-	private $email;
-	private $dtNascimento;
+	private static $nome;
+	private static $endereco;
+	private static $telefone;
+	private static $email;
+	private static $dtNascimento;
 
 	public static function validar(){
 		if(!isset($_POST['nome'])){
@@ -39,11 +39,17 @@ class PacienteVd{
 		self::$email 		= $_POST['email'];
 		self::$dtNascimento = $_POST['dt-nascimento'];
 
-		normalizarDados();
+		self::normalizarDados();
 	}
 
 	private static function normalizarDados(){
+		$normalizador = array('(' => '', '-' =>'');
+		$dataSeparada = explode("/", self::$dtNascimento);
 
+		$dataSql = $dataSeparada[2] . "-" . $dataSeparada[0] . "-" . $dataSeparada[1];
+
+		self::$dtNascimento = $dataSql;
+		self::$telefone = strtr(self::$telefone, $normalizador);
 	}
 
 	public static function getNome(){
