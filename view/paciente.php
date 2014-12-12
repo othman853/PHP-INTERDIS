@@ -40,7 +40,7 @@
 						
 						<div class="form-group">
 							<label>Telefone:</label>
-							<span id="telefone" class="input"><?php echo $paciente['telefone'];?></span>
+							<span id="telefone" class="input telefone"><?php echo $paciente['telefone'];?></span>
 						</div>
 						
 						<div class="form-group">

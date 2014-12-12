@@ -22,7 +22,7 @@ class LoginBo{
 		$login = LoginVd::getLogin();
 		$senha = md5(LoginVd::getSenha());
 
-		$this->dao->find('usuario, senha',"usuario = '" . $login . "'");
+		$this->dao->find('usuario, senha, nivel',"usuario = '" . $login . "'");
 		$usuarios = $this->dao->getResultSet();
 
 		if($usuarios == NULL){
@@ -33,6 +33,7 @@ class LoginBo{
 			if($usuario['usuario'] == $login &&
 			   $usuario['senha']   == $senha){
 			   	$_SESSION['usuario'] = $usuario['usuario'];
+			    $_SESSION['nivel_usuario'] = $usuario['nivel'];
 				return true;
 			}
 		}		

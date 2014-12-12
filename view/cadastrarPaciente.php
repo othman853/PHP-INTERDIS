@@ -38,8 +38,7 @@
 				break;
 
 			case 'dt-nascimento':
-				$placeholder = "Ex: 09/09/1990";
-				$campo = "dt_nascimento";
+				$placeholder = "Ex: 09/09/1990";				
 				break;
 			
 			default:
@@ -47,7 +46,7 @@
 				break;
 		}
 		if(isset($paciente)){	
-			echo "<input type='text' id='". $campo. "' name='". $campo . "' value=$paciente[0]['" . $campo . "']; />";	
+			echo "<input type='text' id='". $campo. "' name='". $campo . "' value=$paciente[0]['" . strtr($campo, array('-' => '_')) . "']; />";	
 		}else{
 			echo "<input type='text' id='" . $campo . "' name='" . $campo . "' placeholder = '" . $placeholder . "'/>";	
 		}

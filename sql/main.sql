@@ -1,3 +1,5 @@
+-- DROP DATABASE JOHAN_YASSER_INTERDIS;
+
 CREATE DATABASE JOHAN_YASSER_INTERDIS;
 
 USE JOHAN_YASSER_INTERDIS;
@@ -6,6 +8,7 @@ CREATE TABLE USUARIO(
 cod_usuario bigint not null auto_increment,
 usuario varchar(50),
 senha varchar(100),
+nivel smallint,
 
 constraint PK_USUARIO primary key (cod_usuario)
 );
@@ -89,7 +92,10 @@ CREATE VIEW VW_AGENDA_MEDICO(crm, nome_medico, dia, hora, estado, descricao_esta
 	FROM AGENDA A
 	INNER JOIN MEDICO M ON M.crm = A.CRM;
     
-INSERT INTO USUARIO (usuario, senha) VALUES ('usuario', md5('senha'));
+INSERT INTO USUARIO (usuario, senha, nivel) VALUES ('admin', md5('admin'), 0);
+INSERT INTO USUARIO (usuario, senha, nivel) VALUES ('paciente', md5('paciente'), 1);
+INSERT INTO USUARIO (usuario, senha, nivel) VALUES ('atendente', md5('atendente'), 2);
+INSERT INTO USUARIO (usuario, senha, nivel) VALUES ('medico', md5('medico'), 3);
 
 INSERT INTO ESPECIALIDADE_MEDICA (descricao) VALUES('Pediatra');
 INSERT INTO ESPECIALIDADE_MEDICA (descricao) VALUES('Neurologista');

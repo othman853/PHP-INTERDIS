@@ -11,7 +11,7 @@ class LoginCtr{
 	}
 
 	public function validarCredenciais(){		
-		if($this->bo->validarCredenciais()){			
+		if($this->bo->validarCredenciais()){						
 			header("Location:view/menu.php");
 		}
 
