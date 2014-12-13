@@ -4,6 +4,8 @@
 	<link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css" type="text/css" >
 	<link rel="stylesheet" href="css/main.css" type="text/css">
 	<link rel="stylesheet" href="css/menu.css" type="text/css">
+
+	<title>Menu</title>
 	
 	<?php include_once '../controller/MenuCtr.class.php'; ?>
 </head>

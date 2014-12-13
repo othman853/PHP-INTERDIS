@@ -7,12 +7,15 @@ class AgendaCtr{
 	private $bo;
 
 	public function __construct(){
-		$this->bo = new AgendaBo();
-
+		$this->bo = new AgendaBo();		
 	}
 
 	public function getLista(){
 		return $this->bo->getLista();
+	}
+
+	public function salvar(){
+		$this->bo->salvar();
 	}
 
 }

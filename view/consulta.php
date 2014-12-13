@@ -6,21 +6,18 @@
 	<link rel="stylesheet" href="css/cadastro.css" type="text/css">
 	<?php include_once '../controller/AgendaCtr.class.php'; ?>
 
-	<title>Agenda</title>
+	<title>Consultas</title>
 </head>
 <body>
 	<header>
 		<form action="cadastrarAgenda.php" method="post">
 			<input type="submit" name="adicionar" class="form-component button button-add" value="Cadastrar Agenda"/>
-
 			<span class="button to-right"><a href="menu.php"> Menu </a></span>			
-
-			<span class="button to-right"><a href="GerarXml.php"> Gerar XML </a></span>
-			
-		</form>				
+		</form>		
+		<!-- <span><a href="menu.php" class="form-component button button-add">Menu</a></span> -->
 	</header>			
 	
-									
+	<div id="table">								
 		<?php 			
 			try{
 				$ctr = new AgendaCtr();
@@ -36,6 +33,11 @@
 					foreach($agendas as $agenda){ 
 					?>	
 					<article id="form-wraper">
+						<!-- <div class="form-group">
+							<label>Médico:</label>						
+							<span class="input"><?php echo $agenda['nome_medico'];?></span>
+						</div>
+ -->
 						<div class="form-group">
 							<label>Dia:</label>
 							<span class="input"><?php echo $agenda['dia'];?></span>
@@ -52,49 +54,39 @@
 						</div>
 						<?php
 							if($agenda['estado'] == 0){
-						?>							
-
-								<span class='form-component table-column list-button delete'>
-									<a href= <?php echo "alterarAgenda.php?crm=".$agenda['crm'] . "&hora=" . $agenda['hora'] . "&dia=" . $agenda['dia'] . "&c=3";?> >Cancelar</a>
+						?>
+								<span class='form-component table-column list-button update'>
+									<a href= <?php echo "marcarConsulta.php?id=".$agenda['crm'] . "&hora=" . $agenda['hora'] . "&dia=" . $agenda['dia'];?> >Marcar</a>
 								</span>
 						<?php
-							}else if ($agenda['estado'] == 1){								
-								?>
-								<span class='form-component table-column list-button delete'>
-									<a href= <?php echo "alterarAgenda.php?crm=".$agenda['crm'] . "&hora=" . $agenda['hora'] . "&dia=" . $agenda['dia'] . "&c=3";?> >Cancelar</a>
-								</span>
-								<?php
-
-							}else if ($agenda['estado'] == 2){								
-								?>
-								<span class='form-component table-column list-button update'>
-									<a href= <?php echo "alterarAgenda.php?crm=".$agenda['crm'] . "&hora=" . $agenda['hora'] . "&dia=" . $agenda['dia'] . "&c=100";?> >Excluir</a>									
-								</span>
-								<?php
-
-							}else if ($agenda['estado'] == 3){
-								//Reativar
-								?>
-								<span class='form-component table-column list-button update'>
-									<a href= <?php echo "alterarAgenda.php?crm=".$agenda['crm'] . "&hora=" . $agenda['hora'] . "&dia=" . $agenda['dia'] . "&c=0";?> >Reabrir</a>									
-								</span>
-								<?php
 							}
 						?>
+<!-- 
+						<span class='form-component table-column list-button delete'>
+							<a href= <?php echo "excluirPaciente.php?id=".$paciente['cod_paciente'];?> >Excluir</a>
+						</span>	 -->			
+
 					</article>		
 		  <?php 
 					} 
-				}else{					
+				}else{
+					echo "OK";
 					?> <div class='message success' > Não há agendas.</div><?php
 				}
-			}catch(Exception $ex){				
+			}catch(Exception $ex){
+				echo "EXCEPTION";
 		   ?>
+
 				<div class="message fail"> <?php echo $ex->getMessage(); ?></div> 
+
 		<?php
 
 			}
 
-		?>	
+		?>
+			
+
+	</div>	
 </body>	
 <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="js/jquery.mask.min.js"></script>

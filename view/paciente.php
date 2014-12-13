@@ -5,6 +5,8 @@
 	<link rel="stylesheet" href="css/crud.css" type="text/css">
 	<link rel="stylesheet" href="css/cadastro.css" type="text/css">
 	<?php include_once '../controller/PacienteCtr.class.php'; ?>
+
+	<title> Lista de Pacientes </title>
 </head>
 <body>
 	<header>

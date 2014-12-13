@@ -112,6 +112,7 @@ CREATE VIEW VW_AGENDA_MEDICO(crm, nome_medico, dia, hora, estado, descricao_esta
 												   WHEN 0 THEN "DISPONIVEL"
                                                    WHEN 1 THEN "PENDENTE"
                                                    WHEN 2 THEN "INDISPONIVEL"
+												   WHEN 3 THEN "CANCELADA"
                                                    END AS "descricao_estado"
 	FROM AGENDA A
 	INNER JOIN MEDICO M ON M.crm = A.CRM;

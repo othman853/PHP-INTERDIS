@@ -7,7 +7,7 @@ class MedicoBo{
 	private $genericoDao;
 
 	public function __construct(){
-		$this->dao = new MedicoDao();		
+		$this->dao = new MedicoDao();			
 	}
 
 	public function getLista(){
