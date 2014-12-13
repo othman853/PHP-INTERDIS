@@ -1,6 +1,7 @@
 <?php
 include_once 'model/vd/LoginVd.class.php';
 include_once 'model/dao/LoginDao.class.php';
+include_once 'model/dao/GenericoDao.class.php';
 
 class LoginBo{
 
@@ -40,10 +41,10 @@ class LoginBo{
 						$daoGenerico = new GenericoDao("ADMINISTRADOR");
 
 						$fields = "cod_admin";
-						$filter = "cod_usuario = $usuario['cod_usuario']";
+						$filter = "cod_usuario = " . $usuario['cod_usuario'];
 
-						$this->daoGenerico->find($fields, $filter);
-						$result = $this->daoGenerico->getResultSet();
+						$daoGenerico->find($fields, $filter);
+						$result = $daoGenerico->getResultSet();
 
 						$identificacaoUsuario = $result[0]['cod_admin'];
 					break;					
@@ -51,24 +52,37 @@ class LoginBo{
 					case 1:
 						$daoGenerico = new GenericoDao("PACIENTE");
 
-						$fields = "";
-						$filter = "";
+						$fields = "cod_paciente";
+						$filter = "cod_usuario = " . $usuario['cod_usuario'];
 
+						$daoGenerico->find($fields, $filter);
+						$result = $daoGenerico->getResultSet();
+
+						$identificacaoUsuario = $result[0]['cod_paciente'];
 					break;
 
 					case 2:
 						$daoGenerico = new GenericoDao("ATENDENTE");
 
-						$fields = "";
-						$filter = "";
+						$fields = "cod_atendente";
+						$filter = "cod_usuario = " . $usuario['cod_usuario'];
 
+						$daoGenerico->find($fields, $filter);
+						$result = $daoGenerico->getResultSet();
+
+						$identificacaoUsuario = $result[0]['cod_atendente'];
 					break;
 
 					case 3:
 						$daoGenerico = new GenericoDao("MEDICO");
 
-						$fields = "";
-						$filter = "";
+						$fields = "crm";
+						$filter = "cod_usuario = " . $usuario['cod_usuario'];
+
+						$daoGenerico->find($fields, $filter);
+						$result = $daoGenerico->getResultSet();
+
+						$identificacaoUsuario = $result[0]['crm'];
 					break;
 
 					default:

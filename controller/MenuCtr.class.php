@@ -8,6 +8,8 @@ class MenuCtr{
 	public function __construct(){		
 		session_start();
 
+		echo $_SESSION['identificacao_usuario'];
+
 		$this->bo = new MenuBo();
 	}
 	

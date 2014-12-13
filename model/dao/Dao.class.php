@@ -119,6 +119,7 @@ abstract class Dao {
 
 		//montar o comando sql para CONSULTA
 		$sql = "SELECT $columns FROM $this->tableName $filter";	
+		echo $sql;
 		
 		$this->rs = Connection::getConn()->query($sql);
 		
