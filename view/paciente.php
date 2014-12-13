@@ -9,9 +9,10 @@
 <body>
 	<header>
 		<form action="cadastrarPaciente.php" method="post">
-			<input type="submit" name="adicionar" class="form-component button button-add" value="Cadastrar Paciente"/>			
+			<input type="submit" name="adicionar" class="form-component button button-add" value="Cadastrar Paciente"/>
+			<span class="button to-right"><a href="menu.php"> Menu </a></span>
 		</form>		
-		<!-- <span><a href="menu.php" class="form-component button button-add">Menu</a></span> -->
+		
 	</header>			
 	
 	<div id="table">								

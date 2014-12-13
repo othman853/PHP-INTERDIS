@@ -8,8 +8,9 @@
 </head>
 <body>
 	<header>
-		<form action="cadastrarPaciente.php" method="post">
-			<input type="submit" name="adicionar" class="form-component button button-add" value="Cadastrar Paciente"/>			
+		<form action="cadastrarAgenda.php" method="post">
+			<input type="submit" name="adicionar" class="form-component button button-add" value="Cadastrar Agenda"/>
+			<span class="button to-right"><a href="menu.php"> Menu </a></span>			
 		</form>		
 		<!-- <span><a href="menu.php" class="form-component button button-add">Menu</a></span> -->
 	</header>			
@@ -30,12 +31,11 @@
 					foreach($agendas as $agenda){ 
 					?>	
 					<article id="form-wraper">
-						<div class="form-group">
+						<!-- <div class="form-group">
 							<label>Médico:</label>						
 							<span class="input"><?php echo $agenda['nome_medico'];?></span>
 						</div>
-
-
+ -->
 						<div class="form-group">
 							<label>Dia:</label>
 							<span class="input"><?php echo $agenda['dia'];?></span>
@@ -54,7 +54,7 @@
 							if($agenda['estado'] == 0){
 						?>
 								<span class='form-component table-column list-button update'>
-									<a href= <?php echo "marcarConsulta.php?id=".$agenda['cod_agenda'] . "&hora=" . $agenda['hora'] . "&data=" . $agenda['data'];?> >Marcar</a>
+									<a href= <?php echo "marcarConsulta.php?id=".$agenda['crm'] . "&hora=" . $agenda['hora'] . "&dia=" . $agenda['dia'];?> >Marcar</a>
 								</span>
 						<?php
 							}

@@ -5,6 +5,7 @@
 
 		<?php include_once '../controller/PacienteCtr.class.php';?>
 		<?php include_once '../model/vd/PacienteVd.class.php'; ?>
+
 		<link rel="stylesheet" href="css/main.css">
 		<link rel="stylesheet" href="css/cadastro.css">
 	</head>
@@ -15,69 +16,48 @@
 		$ctr = new PacienteCtr();
 		$paciente = $ctr->buscar($_GET['id']);		
 	}
-
-
-	function renderizarCampo($campo){
-		$placeholder = "";
-
-		switch ($campo) {
-			case 'nome':
-				$placeholder = "Ex: Maria da Silva";
-				break;
-
-			case 'endereco':
-				$placeholder = "Ex: Av. Assis Brasil, 300";
-				break;
-
-			case 'telefone':
-				$placeholder = "Ex: (99)9999-9999";
-				break;
-
-			case 'email':
-				$placeholder = "Ex: maria.silva@email.com";
-				break;
-
-			case 'dt-nascimento':
-				$placeholder = "Ex: 09/09/1990";				
-				break;
-			
-			default:
-				$placeholder= "";
-				break;
-		}
-		if(isset($paciente)){	
-			echo "<input type='text' id='". $campo. "' name='". $campo . "' value=$paciente[0]['" . strtr($campo, array('-' => '_')) . "']; />";	
-		}else{
-			echo "<input type='text' id='" . $campo . "' name='" . $campo . "' placeholder = '" . $placeholder . "'/>";	
-		}
-	}
 	?>
 		<div id="form-wraper">
-			<form action="cadastrarPaciente.php" method="POST">	
+			<?php
+				if(isset($_GET['id'])){
+					$id = $_GET['id'];
+
+					$action = "cadastrarPaciente.php?id=$id";
+				}else{
+					$action = "cadastrarPaciente.php";
+				}
+			?>
+			<form action= "cadastrarPaciente.php" method="POST">	
 				<h1>Cadastrar Paciente </h1>		
+				<?php 
+					if(isset($_GET['id'])){
+						$id = $_GET['id'];
+						echo "<input type='hidden' name='cod_paciente' value='$id'>";
+					}
+				?>
 				<div class="form-group">
-					<label>Nome:</label>
-					<?php renderizarCampo("nome");?>					
+					<label>Nome:</label>					
+					<input type="text" name="nome" value=<?php $nome = (isset($_GET['id'])) ? $paciente[0]['nome'] : ""; echo $nome;?> >
 				</div>
 
 				<div class="form-group">
-					<label>Endereço:</label>
-					<?php renderizarCampo("endereco");?>					
+					<label>Endereço:</label>					
+					<input type="text" name="endereco" value=<?php $endereco = (isset($_GET['id'])) ? $paciente[0]['endereco'] : ""; echo $endereco;?> >
 				</div>
 
 				<div class="form-group">
-					<label>Telefone:</label>
-					<?php renderizarCampo("telefone");?>					
+					<label>Telefone:</label>					
+					<input type="text" class="telefone" name="telefone" value=<?php $telefone = (isset($_GET['id'])) ? $paciente[0]['telefone'] : ""; echo $telefone;?> >
 				</div>
 
 				<div class="form-group">
-					<label>Email:</label>
-					<?php renderizarCampo("email");?>
+					<label>Email:</label>					
+					<input type="text" name="email" value=<?php $email = (isset($_GET['id'])) ? $paciente[0]['email'] : ""; echo $email;?> >
 				</div>
 
 				<div class="form-group">
-					<label>Data de Nascimento:</label>
-					<?php renderizarCampo("dt-nascimento");?>
+					<label>Data de Nascimento:</label>					
+					<input type="text" class="dt-nascimento" name="dt-nascimento" value=<?php $dt_nascimento = (isset($_GET['id'])) ? $paciente[0]['dt_nascimento'] : ""; echo $dt_nascimento;?> >
 				</div>
 
 				<input type="submit" class="button" name="cadastrar" value="Cadastrar" />
@@ -96,7 +76,15 @@ if(isset($_POST['cadastrar'])){
 		PacienteVd::validar();
 		$ctr = new PacienteCtr();
 
-		$ctr->salvar();
+		if(isset($_POST['cod_paciente'])){		
+			$id = $_POST['cod_paciente'];
+
+			$ctr->alterar($id);			
+		}
+
+		else{
+			$ctr->salvar();
+		}
 		
 	}catch(Exception $ex){
 	?>

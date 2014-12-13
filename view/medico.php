@@ -10,7 +10,9 @@
 	<header>
 		<form action="cadastrarMedico.php" method="post">
 			<input type="submit" name="adicionar" class="form-component button button-add" value="Cadastrar Médico"/>			
+			<span class="button to-right"><a href="menu.php"> Menu </a></span>
 		</form>		
+
 	</header>		
 
 	<?php 
@@ -26,27 +28,27 @@
 
 					<div class="form-group">
 						<label>CRM:</label>
-						<input type="text" id="crm" name="crm" value=<?php echo "'" . $medico['crm'] . "'";?> disabled />				
+						<span class="input"> <?php echo $medico['crm'];?> </span>				
 					</div>
 
 					<div class="form-group">
 						<label>Nome:</label>
-						<input type="text" id="nome" name="nome"  value=<?php echo "'" . $medico['nome'] . "'";?> disabled/>				
+						<span class="input"> <?php echo $medico['nome'];?> </span>				
 					</div>
 
 					<div class="form-group">
 						<label>Email:</label>
-						<input type="text" id="email" name="email" value=<?php echo "'" . $medico['email'] . "'";?> disabled/>				
+						<span class="input"> <?php echo $medico['email'];?> </span>				
 					</div>
 
 					<div class="form-group">
 						<label>Celular:</label>
-						<input type="text" id="celular" name="celular" value=<?php echo "'" . $medico['celular'] . "'";?> disabled/>				
+						<span class="input celular"> <?php echo $medico['celular'];?> </span>				
 					</div>
 
 					<div class="form-group">
 						<label>Telefone:</label>
-						<input type="text" id="telefone" name="telefone" value=<?php echo "'" . $medico['telefone'] . "'";?> disabled/>				
+						<span class="input telefone"> <?php echo $medico['telefone'];?> </span>				
 					</div>						
 					<span class='form-component table-column list-button update'><a href= <?php echo strtr($medico['nome'], array(" " => "%20"));?> >Alterar</a></span>
 					<span class='form-component table-column list-button delete'><a href= <?php echo "excluirMedico.php?id=" . $medico['crm'];?> >Excluir</a></span>				

@@ -1,4 +1,5 @@
 -- DROP DATABASE JOHAN_YASSER_INTERDIS;
+start transaction;
 
 CREATE DATABASE JOHAN_YASSER_INTERDIS;
 
@@ -13,6 +14,15 @@ nivel smallint,
 constraint PK_USUARIO primary key (cod_usuario)
 );
 
+CREATE TABLE ADMINISTRADOR(
+cod_admin bigint not null auto_increment,
+nome varchar(200),
+cod_usuario bigint,
+
+constraint PK_ADMIN primary key(cod_admin),
+constraint FK_ADMIN_USUARIO foreign key(cod_usuario) references USUARIO(cod_usuario) 
+);
+
 CREATE TABLE PACIENTE(
 cod_paciente bigint not null auto_increment,
 nome varchar(150) not null,
@@ -20,9 +30,21 @@ endereco varchar(250),
 telefone varchar(10),
 email varchar(50),
 dt_nascimento date,
+cod_usuario bigint,
 
-constraint PK_PACIENTE primary key(cod_paciente)
+constraint PK_PACIENTE primary key(cod_paciente),
+constraint FK_PACIENTE_USUARIO foreign key (cod_usuario) references USUARIO(cod_usuario)
 );
+
+CREATE TABLE ATENDENTE(
+	cod_atendente bigint not null auto_increment,
+	nome varchar(90),
+	cod_usuario bigint,
+
+	constraint PK_ATENDENTE primary key (cod_atendente),
+	constraint FK_ATENDENTE_USUARIO foreign key (cod_usuario) references USUARIO(cod_usuario)
+);
+
 
 CREATE TABLE ESPECIALIDADE_MEDICA(
 cod_espec bigint not null auto_increment,
@@ -37,8 +59,10 @@ nome varchar(80),
 telefone varchar(10),
 celular varchar(10),
 email varchar(60),
+cod_usuario bigint,
 
-constraint PK_MEDICO primary key (crm)
+constraint PK_MEDICO primary key (crm),
+constraint FK_MEDICO_USUARIO foreign key (cod_usuario) references USUARIO(cod_usuario)
 );
 
 CREATE TABLE AGENDA(
@@ -88,7 +112,7 @@ CREATE VIEW VW_AGENDA_MEDICO(crm, nome_medico, dia, hora, estado, descricao_esta
 												   WHEN 0 THEN "DISPONIVEL"
                                                    WHEN 1 THEN "PENDENTE"
                                                    WHEN 2 THEN "INDISPONIVEL"
-                                                   END 
+                                                   END AS "descricao_estado"
 	FROM AGENDA A
 	INNER JOIN MEDICO M ON M.crm = A.CRM;
     
@@ -106,13 +130,13 @@ INSERT INTO ESPECIALIDADE_MEDICA (descricao) VALUES('Pneumologista');
 INSERT INTO ESPECIALIDADE_MEDICA (descricao) VALUES('Geral');
 INSERT INTO ESPECIALIDADE_MEDICA (descricao) VALUES('Traumatologista');
 
-INSERT INTO MEDICO(crm, nome, telefone, celular, email) VALUES (2520, 'Carlos Machado Silva', '5139486791', '5195345769', 'carlos.machado@gmail.com');
-INSERT INTO MEDICO(crm, nome, telefone, celular, email) VALUES (1781, 'Mariana Cardoso Souto', '5134386521', '5195323775', 'mariana.souto@gmail.com');
-INSERT INTO MEDICO(crm, nome, telefone, celular, email) VALUES (2241, 'Marcia Silva Peixoto', '5133487632', '5196434889', 'marcia.peixoto.@gmail.com');
-INSERT INTO MEDICO(crm, nome, telefone, celular, email) VALUES (0111, 'Abílio Santos', '5134598251', '5196434889', 'abilio.santos@gmail.com');
-INSERT INTO MEDICO(crm, nome, telefone, celular, email) VALUES (3592, 'Abelardo Moura Santos', '5133918251', '5196788950', 'abel.santos@gmail.com');
-INSERT INTO MEDICO(crm, nome, telefone, celular, email) VALUES (9447, 'Leonel Padilha Morimoto', '5132348678', '5194438576', 'leonel.morimoto@gmail.com');
-INSERT INTO MEDICO(crm, nome, telefone, celular, email) VALUES (3698, 'Antonia Martins Brasil', '5133597689', '5192364578', 'antonia.brasil@gmail.com');
+INSERT INTO MEDICO(crm, nome, telefone, celular, email, cod_usuario) VALUES (2520, 'Carlos Machado Silva', '5139486791', '5195345769', 'carlos.machado@gmail.com', 4);
+INSERT INTO MEDICO(crm, nome, telefone, celular, email, cod_usuario) VALUES (1781, 'Mariana Cardoso Souto', '5134386521', '5195323775', 'mariana.souto@gmail.com', 4);
+INSERT INTO MEDICO(crm, nome, telefone, celular, email, cod_usuario) VALUES (2241, 'Marcia Silva Peixoto', '5133487632', '5196434889', 'marcia.peixoto.@gmail.com', 4);
+INSERT INTO MEDICO(crm, nome, telefone, celular, email, cod_usuario) VALUES (0111, 'Abílio Santos', '5134598251', '5196434889', 'abilio.santos@gmail.com', 4);
+INSERT INTO MEDICO(crm, nome, telefone, celular, email, cod_usuario) VALUES (3592, 'Abelardo Moura Santos', '5133918251', '5196788950', 'abel.santos@gmail.com', 4);
+INSERT INTO MEDICO(crm, nome, telefone, celular, email, cod_usuario) VALUES (9447, 'Leonel Padilha Morimoto', '5132348678', '5194438576', 'leonel.morimoto@gmail.com', 4);
+INSERT INTO MEDICO(crm, nome, telefone, celular, email, cod_usuario) VALUES (3698, 'Antonia Martins Brasil', '5133597689', '5192364578', 'antonia.brasil@gmail.com', 4);
 
 INSERT INTO ESPEC_MEDICO(crm, cod_espec) VALUES(1781,1); 
 INSERT INTO ESPEC_MEDICO(crm, cod_espec) VALUES(2241,3);
@@ -131,12 +155,15 @@ VALUES 	(1781, '2014-10-10', '10:00:00', 1),
 		(2520, '2014-09-30', '14:00:00', 0),
 		(3698, '2014-09-30', '17:00:00', 2);
 
-INSERT INTO PACIENTE (nome, endereco, telefone, email, dt_nascimento ) 
-VALUES ('Mohammed Mamebud', 'Av. Assis Brasil, 1568', '5130479896', 'mohammed.mamebud@gmail.com', '1990-09-05');
+INSERT INTO PACIENTE (nome, endereco, telefone, email, dt_nascimento, cod_usuario ) 
+VALUES ('Mohammed Mamebud', 'Av. Assis Brasil, 1568', '5130479896', 'mohammed.mamebud@gmail.com', '1990-09-05', 2);
 
-INSERT INTO PACIENTE (nome, endereco, telefone, email, dt_nascimento ) 
-VALUES ('Najla Rachid', 'Av. Plínio Brasil Milano, 400', '5134589657', 'najla.rachid@gmail.com', '1993-10-04');
+INSERT INTO PACIENTE (nome, endereco, telefone, email, dt_nascimento, cod_usuario) 
+VALUES ('Najla Rachid', 'Av. Plínio Brasil Milano, 400', '5134589657', 'najla.rachid@gmail.com', '1993-10-04', 2);
+
+INSERT INTO ATENDENTE (nome, cod_usuario) VALUES ('Carla Moreira', 3);
 
 INSERT INTO CONSULTA (crm_medico, cod_paciente, data_consulta, hora_consulta)
 VALUES 	(2241, 1, '2014-09-30', '13:00:00'),
 		(3698, 2, '2014-09-30', '17:00:00');
+commit;

@@ -5,7 +5,7 @@ class MenuBo{
 	public function __construct(){}
 
 	public function bloquearAcesso(){		
-		include '../view/bloquear.html';
+		include '../view/bloquearMenu.html';
 	}
 					
 

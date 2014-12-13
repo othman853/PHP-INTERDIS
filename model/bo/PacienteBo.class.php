@@ -41,8 +41,19 @@ class PacienteBo{
 		return $this->dao->getResultSet();
 	}
 
-	public function alterar(){
+	public function alterar($id){
+		
+		$codPaciente    = $id;
+		$nome 			= PacienteVd::getNome();
+		$endereco 		= PacienteVd::getEndereco();
+		$telefone 		= PacienteVd::getTelefone();
+		$email 			= PacienteVd::getEmail();
+		$dtNascimento 	= PacienteVd::getDtNascimento();
 
+		$values = "nome = '$nome', endereco = '$endereco', telefone = '$telefone', email = '$email', dt_nascimento = '$dtNascimento'";
+		$filter = "cod_paciente = $id";
+
+		$this->dao->update($values, $filter);
 	}
 
 	public function excluir($codPaciente){

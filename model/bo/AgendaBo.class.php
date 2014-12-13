@@ -11,12 +11,12 @@ class AgendaBo{
 	}
 
 	public function getLista(){
-			$fields = "cod_consulta, crm, nome_medico, dia, hora, estado, descricao_estado";
-			$filter = "";
+		$fields = "crm, dia, hora, estado, descricao_estado";
+		$filter = "";
 
-			$this->dao->find($fields, $filter);
+		$this->dao->find($fields, $filter);
 			
-			return $this->dao->getResultSet();
+		return $this->dao->getResultSet();
 	}
 
 	public function marcar(){
