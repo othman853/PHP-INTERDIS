@@ -60,6 +60,27 @@ class AgendaBo{
 		 	$this->dao->update($field, $filter);
 	   	}		
 	}
+
+	public static function gerarXml(){
+		$drawer = new DOMDocument("1.0", "ISO-8859-1");
+		$drawer->preserveWhiteSpace = FALSE;
+		$drawer->formatOutput = TRUE;
+
+		$root = $drawer->createElement("agenda");
+		$contato = $drawer->createElement("contato");
+
+		$nome = $drawer->createElement("nome", "Teste");
+		$telefone = $drawer->createElement("telefone", "1223123123");
+
+		$contato->appendChild($nome);
+		$contato->appendChild($telefone);
+
+
+		$root->appendChild($contato);
+		$drawer->appendChild($root);
+
+		$drawer->save("/root/contatos.xml");
+	}
 }
 
 ?>

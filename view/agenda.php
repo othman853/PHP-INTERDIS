@@ -4,6 +4,11 @@
 	<link rel="stylesheet" href="css/main.css" type="text/css">
 	<link rel="stylesheet" href="css/crud.css" type="text/css">
 	<link rel="stylesheet" href="css/cadastro.css" type="text/css">
+
+	<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="js/jquery.mask.min.js"></script>
+	<script type="text/javascript" src="js/cadastro.js"></script>
+	
 	<?php include_once '../controller/AgendaCtr.class.php'; ?>
 
 	<title>Agenda</title>
@@ -15,8 +20,7 @@
 
 			<span class="button to-right"><a href="menu.php"> Menu </a></span>			
 
-			<span class="button to-right"><a href="GerarXml.php"> Gerar XML </a></span>
-			
+			<span class="button to-right"><a href="gerarXml.php"> Gerar XML </a></span>			
 		</form>				
 	</header>			
 	
@@ -72,11 +76,14 @@
 								</span>
 								<?php
 
-							}else if ($agenda['estado'] == 3){
-								//Reativar
+							}else if ($agenda['estado'] == 3){								
 								?>
 								<span class='form-component table-column list-button update'>
 									<a href= <?php echo "alterarAgenda.php?crm=".$agenda['crm'] . "&hora=" . $agenda['hora'] . "&dia=" . $agenda['dia'] . "&c=0";?> >Reabrir</a>									
+								</span>
+
+								<span class='form-component table-column list-button delete'>
+									<a href= <?php echo "alterarAgenda.php?crm=".$agenda['crm'] . "&hora=" . $agenda['hora'] . "&dia=" . $agenda['dia'] . "&c=100";?> >Excluir</a>									
 								</span>
 								<?php
 							}
@@ -96,7 +103,4 @@
 
 		?>	
 </body>	
-<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
-<script type="text/javascript" src="js/jquery.mask.min.js"></script>
-<script type="text/javascript" src="js/cadastro.js"></script>
 </html>

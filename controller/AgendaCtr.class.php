@@ -18,5 +18,9 @@ class AgendaCtr{
 		$this->bo->salvar();
 	}
 
+	public static function gerarXml(){
+		AgendaBo::gerarXml();
+	}
+
 }
 ?>
