@@ -17,10 +17,10 @@
 	<header>
 		<form action="cadastrarAgenda.php" method="post">
 			<input type="submit" name="adicionar" class="form-component button button-add" value="Cadastrar Agenda"/>
-
+			
 			<span class="button to-right"><a href="menu.php"> Menu </a></span>			
-
 			<span class="button to-right"><a href="gerarXml.php"> Gerar XML </a></span>			
+						
 		</form>				
 	</header>			
 	

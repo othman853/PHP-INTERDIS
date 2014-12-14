@@ -1,6 +1,8 @@
 <?php
 include_once '../controller/AgendaCtr.class.php';
 
-AgendaCtr::gerarXml();
+$ctr = new AgendaCtr();
+
+$ctr->gerarXml();
 
 ?>

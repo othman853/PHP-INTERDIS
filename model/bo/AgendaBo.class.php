@@ -61,26 +61,44 @@ class AgendaBo{
 	   	}		
 	}
 
-	public static function gerarXml(){
-		$drawer = new DOMDocument("1.0", "ISO-8859-1");
-		$drawer->preserveWhiteSpace = FALSE;
-		$drawer->formatOutput = TRUE;
+	public function gerarXml(){
 
-		$root = $drawer->createElement("agenda");
-		$contato = $drawer->createElement("contato");
+		if(self::$genericoDao == NULL){
+			self::$genericoDao = new GenericoDao("VW_AGENDA_MEDICO");
+		}
 
-		$nome = $drawer->createElement("nome", "Teste");
-		$telefone = $drawer->createElement("telefone", "1223123123");
+		$fields = "crm, nome_medico, dia, hora, descricao_estado";
+		$filter = "crm = " . $_SESSION['identificacao_usuario'];
 
-		$contato->appendChild($nome);
-		$contato->appendChild($telefone);
+		self::$genericoDao->find($fields, $filter);
 
+		$agendas = self::$genericoDao->getResultSet();
 
-		$root->appendChild($contato);
-		$drawer->appendChild($root);
+		$documento = new DOMDocument("1.0", "ISO-8859-1");
+		$documento->preserveWhiteSpace = FALSE;
+		$documento->formatOutput = TRUE;
 
-		$drawer->save("/root/contatos.xml");
+		$root = $documento->createElement("agendas");
+
+		foreach ($agendas as $agenda) {
+			$dia 	= $documento->createElement("dia", $agenda['dia']);
+			$hora   = $documento->createElement("hora", $agenda['hora']);
+			$estado = $documento->createElement("estado", $agenda['descricao_estado']);
+
+			$agenda = $documento->createElement("agenda");	
+
+			$agenda->appendChild($dia);
+			$agenda->appendChild($hora);
+			$agenda->appendChild($estado);
+
+			$root->appendChild($agenda);
+		}
+
+		$documento->appendChild($root);
+
+		$dia = time();		
+
+		$documento->save("/var/www/html/" . $agendas[0]['crm'] . "_" .  time() .".xml");
 	}
 }
-
 ?>
