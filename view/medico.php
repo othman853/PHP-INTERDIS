@@ -8,11 +8,14 @@
 
 	<?php
 		session_start();
+		
 		if(!isset($_SESSION['usuario'])){
 			header("Location: requisitarLogin.html");
 		}
 
-		if($_SESSION['nivel_usuario'] != 2){
+		if($_SESSION['nivel_usuario'] != 0 &&
+		   $_SESSION['nivel_usuario'] != 2){
+		   	
 			header("Location: bloquearAcesso.html");
 		}
 	?>

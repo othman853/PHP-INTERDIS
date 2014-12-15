@@ -10,8 +10,11 @@ class AgendaBo{
 	private static $genericoDao;
 
 	public function __construct(){
-		$this->dao = new AgendaDao();
-		session_start();
+		$this->dao = new AgendaDao();		
+		
+    	if(session_status() == PHP_SESSION_NONE){
+    		session_start();	    	
+    	}
 	}
 
 	public function getLista(){

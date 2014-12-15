@@ -1,6 +1,6 @@
 <html>
 <head>
-	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="css/main.css" type="text/css">
 	<link rel="stylesheet" href="css/crud.css" type="text/css">
 	<link rel="stylesheet" href="css/cadastro.css" type="text/css">
@@ -8,15 +8,18 @@
 
 	<title>Consultas</title>
 
-	<?php
+	<?php		
 		session_start();
-		if(!isset($_SESSION['usuario'])){
-			session_destroy();
+
+		if(!isset($_SESSION['usuario'])){			
 			header("Location: requisitarLogin.html");
 		}
 
-		if($_SESSION['nivel_usuario'] != 2 && $_SESSION['nivel_usuario'] != 3){
-			session_destroy();
+		if($_SESSION['nivel_usuario'] != 0 && 
+		   $_SESSION['nivel_usuario'] != 1 && 
+		   $_SESSION['nivel_usuario'] != 2 && 
+		   $_SESSION['nivel_usuario'] != 3){			
+		   	
 			header("Location: bloquearAcesso.html");
 		}
 	?>
@@ -63,7 +66,7 @@
 							</div>
 
 							<div class="form-group">
-								<label>Situacao:</label>
+								<label>Situação:</label>
 								<span class="input"><?php echo $consulta['situacao'];?></span>
 							</div>
 						</article>		

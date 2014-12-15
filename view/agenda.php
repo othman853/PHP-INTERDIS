@@ -12,20 +12,20 @@
 	<?php include_once '../controller/AgendaCtr.class.php'; ?>
 
 	<?php
-		session_start();
-		if(!isset($_SESSION['usuario'])){
-			session_destroy();
-			header("Location: requisitarLogin.html");
-		}
+	session_start();
 
-		if($_SESSION['nivel_usuario'] != 3){
-			session_destroy();
-			header("Location: bloquearAcesso.html");
-		}
-		//session_destroy();
-	?>
+	if (!isset($_SESSION['usuario'])) {				
+		header("Location: requisitarLogin.html");
+	}		
 
-	<title>Agenda</title>
+	if($_SESSION['nivel_usuario'] != 0 && 
+		$_SESSION['nivel_usuario'] != 3){									
+		
+		header("Location: bloquearAcesso.html");
+}				
+?>
+
+<title>Agenda</title>
 </head>
 <body>
 	<header>
@@ -34,83 +34,83 @@
 			
 			<span class="button to-right"><a href="menu.php"> Menu </a></span>			
 			<span class="button to-right"><a href="gerarXml.php"> Gerar XML </a></span>			
-						
+			
 		</form>				
 	</header>			
 	
-									
-		<?php 			
-			try{
-				$ctr = new AgendaCtr();
+	
+	<?php 			
+	try{
+		$ctr = new AgendaCtr();
 
-				$agendas = $ctr->getLista();				
+		$agendas = $ctr->getLista();				
 
-				if($agendas != NULL){					
+		if($agendas != NULL){					
 
-					foreach($agendas as $agenda){ 
-					?>	
-					<article id="form-wraper">
-						<div class="form-group">
-							<label>Dia:</label>
-							<span class="input dia"><?php echo ViewUtils::converterDataParaPadraoBrasileiro($agenda['dia']);?></span>
-						</div>
-						
-						<div class="form-group">
-							<label>Hora:</label>
-							<span class="input"><?php echo $agenda['hora'];?></span>
-						</div>
-						
-						<div class="form-group">
-							<label>Estado:</label>
-							<span class="input"><?php echo $agenda['descricao_estado'];?></span>
-						</div>
-						<?php
-							if($agenda['estado'] == 0){
+			foreach($agendas as $agenda){ 
+				?>	
+				<article id="form-wraper">
+					<div class="form-group">
+						<label>Dia:</label>
+						<span class="input dia"><?php echo ViewUtils::converterDataParaPadraoBrasileiro($agenda['dia']);?></span>
+					</div>
+					
+					<div class="form-group">
+						<label>Hora:</label>
+						<span class="input"><?php echo $agenda['hora'];?></span>
+					</div>
+					
+					<div class="form-group">
+						<label>Estado:</label>
+						<span class="input"><?php echo $agenda['descricao_estado'];?></span>
+					</div>
+					<?php
+					if($agenda['estado'] == 0){
 						?>							
 
-								<span class='form-component table-column list-button delete'>
-									<a href= <?php echo "alterarAgenda.php?crm=".$agenda['crm'] . "&hora=" . $agenda['hora'] . "&dia=" . $agenda['dia'] . "&c=3";?> >Cancelar</a>
-								</span>
+						<span class='form-component table-column list-button delete'>
+							<a href= <?php echo "alterarAgenda.php?crm=".$agenda['crm'] . "&hora=" . $agenda['hora'] . "&dia=" . $agenda['dia'] . "&c=3";?> >Cancelar</a>
+						</span>
 						<?php
-							}else if ($agenda['estado'] == 1){								
-								?>
-								<span class='form-component table-column list-button delete'>
-									<a href= <?php echo "alterarAgenda.php?crm=".$agenda['crm'] . "&hora=" . $agenda['hora'] . "&dia=" . $agenda['dia'] . "&c=3";?> >Cancelar</a>
-								</span>
-								<?php
-
-							}else if ($agenda['estado'] == 2){								
-								?>
-								<span class='form-component table-column list-button update'>
-									<a href= <?php echo "alterarAgenda.php?crm=".$agenda['crm'] . "&hora=" . $agenda['hora'] . "&dia=" . $agenda['dia'] . "&c=100";?> >Excluir</a>									
-								</span>
-								<?php
-
-							}else if ($agenda['estado'] == 3){								
-								?>
-								<span class='form-component table-column list-button update'>
-									<a href= <?php echo "alterarAgenda.php?crm=".$agenda['crm'] . "&hora=" . $agenda['hora'] . "&dia=" . $agenda['dia'] . "&c=0";?> >Reabrir</a>									
-								</span>
-
-								<span class='form-component table-column list-button delete'>
-									<a href= <?php echo "alterarAgenda.php?crm=".$agenda['crm'] . "&hora=" . $agenda['hora'] . "&dia=" . $agenda['dia'] . "&c=100";?> >Excluir</a>									
-								</span>
-								<?php
-							}
+					}else if ($agenda['estado'] == 1){								
 						?>
-					</article>		
-		  <?php 
-					} 
-				}else{					
-					?> <div class='message success' > Não há agendas.</div><?php
-				}
-			}catch(Exception $ex){				
-		   ?>
-				<div class="message fail"> <?php echo $ex->getMessage(); ?></div> 
+						<span class='form-component table-column list-button delete'>
+							<a href= <?php echo "alterarAgenda.php?crm=".$agenda['crm'] . "&hora=" . $agenda['hora'] . "&dia=" . $agenda['dia'] . "&c=3";?> >Cancelar</a>
+						</span>
+						<?php
+
+					}else if ($agenda['estado'] == 2){								
+						?>
+						<span class='form-component table-column list-button update'>
+							<a href= <?php echo "alterarAgenda.php?crm=".$agenda['crm'] . "&hora=" . $agenda['hora'] . "&dia=" . $agenda['dia'] . "&c=100";?> >Excluir</a>									
+						</span>
+						<?php
+
+					}else if ($agenda['estado'] == 3){								
+						?>
+						<span class='form-component table-column list-button update'>
+							<a href= <?php echo "alterarAgenda.php?crm=".$agenda['crm'] . "&hora=" . $agenda['hora'] . "&dia=" . $agenda['dia'] . "&c=0";?> >Reabrir</a>									
+						</span>
+
+						<span class='form-component table-column list-button delete'>
+							<a href= <?php echo "alterarAgenda.php?crm=".$agenda['crm'] . "&hora=" . $agenda['hora'] . "&dia=" . $agenda['dia'] . "&c=100";?> >Excluir</a>									
+						</span>
+						<?php
+					}
+					?>
+				</article>		
+				<?php 
+			} 
+		}else{					
+			?> <div class='message success' > Não há agendas.</div><?php
+		}
+	}catch(Exception $ex){				
+		?>
+		<div class="message fail"> <?php echo $ex->getMessage(); ?></div> 
 		<?php
 
-			}
+	}
 
-		?>	
+	?>	
 </body>	
 </html>

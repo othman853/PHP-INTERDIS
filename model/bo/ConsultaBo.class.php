@@ -6,7 +6,10 @@ class ConsultaBo{
 
 	public function __construct(){
 		$this->dao = new ConsultaDao();
-		session_start();
+		
+		if(session_status() == PHP_SESSION_NONE){
+    		session_start();	    	
+    	}
 	}
 
 	public function getLista(){

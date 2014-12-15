@@ -1,7 +1,7 @@
 	<html> 
 	<head>
 		<title>Trabalho Interdisciplinar</title>
-		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<link rel="stylesheet" href="view/css/main.css" type="text/css">
 		<link rel="stylesheet" href="view/css/cadastro.css" type="text/css">
 		<link rel="stylesheet" href="view/css/index.css" type="text/css">		

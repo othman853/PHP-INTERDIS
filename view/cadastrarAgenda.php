@@ -8,13 +8,14 @@
 
 		<?php
 			session_start();
-			if(!isset($_SESSION['usuario'])){
-				session_destroy();
+			
+			if(!isset($_SESSION['usuario'])){				
 				header("Location: requisitarLogin.html");
 			}
 
-			if($_SESSION['nivel_usuario'] != 3){
-				session_destroy();
+			if($_SESSION['nivel_usuario'] != 0 &&
+			   $_SESSION['nivel_usuario'] != 3){				
+			   	
 				header("Location: bloquearAcesso.html");
 			}
 		?>

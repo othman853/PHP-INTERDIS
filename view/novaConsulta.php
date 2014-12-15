@@ -7,11 +7,15 @@
 		<?php include_once '../model/vd/ConsultaVd.class.php'; ?>
 
 		<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
-		<script type="text/javascript" src="js/jquery.mask.min.js"></script>
-		<script type="text/javascript" src="js/cadastro.js"></script>
+		<script type="text/javascript" src="js/jquery.mask.min.js"></script>		
+		<script type="text/javascript" src="js/jquery-ui.min.js"></script>
 
+		<script type="text/javascript" src="js/cadastro.js"></script>
+		<script type="text/javascript" src="js/consulta.js"></script>
+
+		<link rel="stylesheet" href="css/jquery-ui.css">
 		<link rel="stylesheet" href="css/main.css">
-		<link rel="stylesheet" href="css/cadastro.css">
+		<link rel="stylesheet" href="css/cadastro.css">	
 
 		<?php
 			session_start();
@@ -19,7 +23,11 @@
 				header("Location: requisitarLogin.html");
 			}
 
-			if($_SESSION['nivel_usuario'] != 2){
+			if($_SESSION['nivel_usuario'] != 0 &&
+			   $_SESSION['nivel_usuario'] != 1 && 
+			   $_SESSION['nivel_usuario'] != 2 && 
+			   $_SESSION['nivel_usuario'] != 3){
+			   	
 				header("Location: bloquearAcesso.html");
 			}
 		?>
@@ -27,6 +35,9 @@
 	</head>
 
 	<body>
+		<div id="dialog">								
+		</div>
+
 		<div id="form-wraper">
 			<form action="cadastrarAgenda.php" method="POST">
 				<h1>Nova Consulta </h1>
@@ -41,10 +52,15 @@
 				</div>
 
 				<!-- Se a consulta for marcada por Atendente:--> 
-				<!-- Selecionar Paciente -->
+				<!-- Selecionar Paciente -->				
 
 				<!-- Selecionar Médico -->
 
+				<div class="form-group">
+					<label>Médico:</label>
+					<button id="btn-medico" type="button"> Selecionar Medico </button> 
+					<input type="text" class="crm" id="medico" name="medico" placeholder="CRM"/>
+				</div>
 				
 				<input type="submit" class="button" name="cadastrar" value="Marcar"/>
 			</form>		
