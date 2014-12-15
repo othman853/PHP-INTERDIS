@@ -4,83 +4,78 @@
 	<link rel="stylesheet" href="css/main.css" type="text/css">
 	<link rel="stylesheet" href="css/crud.css" type="text/css">
 	<link rel="stylesheet" href="css/cadastro.css" type="text/css">
-	<?php include_once '../controller/AgendaCtr.class.php'; ?>
+	<?php include_once '../controller/ConsultaCtr.class.php'; ?>
 
 	<title>Consultas</title>
+
+	<?php
+		session_start();
+		if(!isset($_SESSION['usuario'])){
+			session_destroy();
+			header("Location: requisitarLogin.html");
+		}
+
+		if($_SESSION['nivel_usuario'] != 2 && $_SESSION['nivel_usuario'] != 3){
+			session_destroy();
+			header("Location: bloquearAcesso.html");
+		}
+	?>
 </head>
 <body>
 	<header>
-		<form action="cadastrarAgenda.php" method="post">
-			<input type="submit" name="adicionar" class="form-component button button-add" value="Cadastrar Agenda"/>
+		<form action="novaConsulta.php" method="post">
+			<input type="submit" name="adicionar" class="form-component button button-add" value="Nova Consulta"/>
 			<span class="button to-right"><a href="menu.php"> Menu </a></span>			
-		</form>		
-		<!-- <span><a href="menu.php" class="form-component button button-add">Menu</a></span> -->
+			<span class="button to-right"><a href="gerarPdf.php"> Gerar PDF </a></span>
+		</form>				
 	</header>			
 	
 	<div id="table">								
 		<?php 			
 			try{
-				$ctr = new AgendaCtr();
+				$ctr = new ConsultaCtr();
 
-				$agendas = $ctr->getLista();
+				$consultas = $ctr->getLista();				
 
-				echo "Try";
+				if($consultas != NULL){					
 
-				if($agendas != NULL){
-
-					echo "Not null";
-
-					foreach($agendas as $agenda){ 
+					foreach($consultas as $consulta){ 
 					?>	
-					<article id="form-wraper">
-						<!-- <div class="form-group">
-							<label>Médico:</label>						
-							<span class="input"><?php echo $agenda['nome_medico'];?></span>
-						</div>
- -->
-						<div class="form-group">
-							<label>Dia:</label>
-							<span class="input"><?php echo $agenda['dia'];?></span>
-						</div>
-						
-						<div class="form-group">
-							<label>Hora:</label>
-							<span class="input"><?php echo $agenda['hora'];?></span>
-						</div>
-						
-						<div class="form-group">
-							<label>Estado:</label>
-							<span class="input"><?php echo $agenda['descricao_estado'];?></span>
-						</div>
-						<?php
-							if($agenda['estado'] == 0){
-						?>
-								<span class='form-component table-column list-button update'>
-									<a href= <?php echo "marcarConsulta.php?id=".$agenda['crm'] . "&hora=" . $agenda['hora'] . "&dia=" . $agenda['dia'];?> >Marcar</a>
-								</span>
-						<?php
-							}
-						?>
-<!-- 
-						<span class='form-component table-column list-button delete'>
-							<a href= <?php echo "excluirPaciente.php?id=".$paciente['cod_paciente'];?> >Excluir</a>
-						</span>	 -->			
+						<article id="form-wraper">
+							<div class="form-group">
+								<label>Médico:</label>
+								<span class="input"><?php echo $consulta['nome_medico'];?></span>
+							</div>
+							
+							<div class="form-group">
+								<label>Paciente:</label>
+								<span class="input"><?php echo $consulta['nome_paciente'];?></span>
+							</div>
+							
+							<div class="form-group">
+								<label>Dia:</label>
+								<span class="input"><?php echo $consulta['data_consulta'];?></span>
+							</div>
 
-					</article>		
-		  <?php 
+							<div class="form-group">
+								<label>Hora:</label>
+								<span class="input"><?php echo $consulta['hora_consulta'];?></span>
+							</div>
+
+							<div class="form-group">
+								<label>Situacao:</label>
+								<span class="input"><?php echo $consulta['situacao'];?></span>
+							</div>
+						</article>		
+		  	<?php 
 					} 
-				}else{
-					echo "OK";
-					?> <div class='message success' > Não há agendas.</div><?php
+				}else{					
+					?> <div class='message success' > Não há consultas.</div><?php
 				}
-			}catch(Exception $ex){
-				echo "EXCEPTION";
+			}catch(Exception $ex){				
 		   ?>
-
 				<div class="message fail"> <?php echo $ex->getMessage(); ?></div> 
-
 		<?php
-
 			}
 
 		?>

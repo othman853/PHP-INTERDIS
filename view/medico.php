@@ -6,6 +6,17 @@
 	<link rel="stylesheet" href="css/cadastro.css" type="text/css">
 	<?php include_once '../controller/MedicoCtr.class.php'; ?>
 
+	<?php
+		session_start();
+		if(!isset($_SESSION['usuario'])){
+			header("Location: requisitarLogin.html");
+		}
+
+		if($_SESSION['nivel_usuario'] != 2){
+			header("Location: bloquearAcesso.html");
+		}
+	?>
+
 	<title>Lista de Médicos</title>
 </head>
 <body>

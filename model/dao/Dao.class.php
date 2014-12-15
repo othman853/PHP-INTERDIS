@@ -52,8 +52,7 @@ abstract class Dao {
 		}
 
 		//montar o comando sql para gravar
-		$sql = "UPDATE $this->tableName SET $fieldsValues $filter";
-		
+		$sql = "UPDATE $this->tableName SET $fieldsValues $filter";		
 		
 		//comando para executar a query no banco de dados
 		Connection::getConn()->beginTransaction();
@@ -117,7 +116,7 @@ abstract class Dao {
 		}
 
 		//montar o comando sql para CONSULTA
-		$sql = "SELECT $columns FROM $this->tableName $filter";			
+		$sql = "SELECT $columns FROM $this->tableName $filter";				
 		
 		$this->rs = Connection::getConn()->query($sql);
 		

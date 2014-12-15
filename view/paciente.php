@@ -5,6 +5,17 @@
 	<link rel="stylesheet" href="css/crud.css" type="text/css">
 	<link rel="stylesheet" href="css/cadastro.css" type="text/css">
 	<?php include_once '../controller/PacienteCtr.class.php'; ?>
+	<?php include_once 'ViewUtils.class.php'; ?>
+
+	<?php
+		session_start();
+		if(!isset($_SESSION['usuario'])){
+			header("Location: requisitarLogin.html");
+		}
+		if($_SESSION['nivel_usuario'] != 2){
+			header("Location: bloquearAcesso.html");
+		}
+	?>
 
 	<title> Lista de Pacientes </title>
 </head>
@@ -27,7 +38,7 @@
 
 				if($pacientes != NULL){
 
-					foreach($pacientes as $paciente){ 
+					foreach($pacientes as $paciente){					
 					?>	
 					<article id="form-wraper">
 						<div class="form-group">
@@ -51,12 +62,17 @@
 							<span class="input"><?php echo $paciente['endereco'];?></span>
 						</div>
 
+						<div class="form-group">
+							<label>Nascimento:</label>
+							<span class="input dt-nascimento"><?php echo ViewUtils::converterDataParaPadraoBrasileiro($paciente['dt_nascimento']);?></span>
+						</div>
+
 						<span class='form-component table-column list-button update'><a href= <?php echo "cadastrarPaciente.php?id=".$paciente['cod_paciente'];?> >Alterar</a></span>
 						<span class='form-component table-column list-button delete'><a href= <?php echo "excluirPaciente.php?id=".$paciente['cod_paciente'];?> >Excluir</a></span>				
 					</article>
 						
 		
-		  <?php 
+		  <?php 		  				
 					} 
 				}else{
 					?> <div class='message success' > Não há pacientes na lista.</div><?php

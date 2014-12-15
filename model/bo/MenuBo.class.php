@@ -5,7 +5,7 @@ class MenuBo{
 	public function __construct(){}
 
 	public function bloquearAcesso(){		
-		include '../view/bloquearMenu.html';
+		include '../view/requisitarLogin.html';
 	}
 					
 
@@ -29,7 +29,11 @@ class MenuBo{
 
 		else if ($nivelDeAcesso == 2){
 			$this->desenharOpcaoManterPaciente();
-			$this->desenharOpcaoManterMedico();			
+			$this->desenharOpcaoManterMedico();	
+			echo "</div>";
+
+			echo "<div class='menu-line'>";		
+			$this->desenharOpcaoConsultas();
 		}
 
 		else if ($nivelDeAcesso == 3){

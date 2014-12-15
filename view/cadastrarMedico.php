@@ -8,6 +8,19 @@
 		<link rel="stylesheet" href="css/main.css">
 		<link rel="stylesheet" href="css/cadastro.css">
 
+		<?php
+			session_start();
+			if(!isset($_SESSION['usuario'])){
+				session_destroy();
+				header("Location: requisitarLogin.html");
+			}
+
+			if($_SESSION['nivel_usuario'] != 2){
+				session_destroy();
+				header("Location: bloquearAcesso.html");
+			}
+		?>
+
 	</head>
 	<body>
 		<div id="form-wraper">

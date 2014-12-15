@@ -16,10 +16,12 @@ class AgendaCtr{
 
 	public function salvar(){
 		$this->bo->salvar();
+		header("Location:agenda.php");
 	}
 
 	public function gerarXml(){
 		$this->bo->gerarXml();
+		header("Location:agenda.php");
 	}
 
 }

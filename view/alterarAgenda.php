@@ -12,7 +12,5 @@ if(isset($_GET['dia']) && isset($_GET['hora'])){
 
 	header("Location:agenda.php");
 	
-}else{
-	echo"nope";
 }
 ?>

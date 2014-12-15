@@ -41,9 +41,9 @@ class PacienteBo{
 		return $this->dao->getResultSet();
 	}
 
-	public function alterar($id){
+	public function alterar(){
 		
-		$codPaciente    = $id;
+		$codPaciente    = PacienteVd::getCodPaciente();
 		$nome 			= PacienteVd::getNome();
 		$endereco 		= PacienteVd::getEndereco();
 		$telefone 		= PacienteVd::getTelefone();
@@ -51,7 +51,7 @@ class PacienteBo{
 		$dtNascimento 	= PacienteVd::getDtNascimento();
 
 		$values = "nome = '$nome', endereco = '$endereco', telefone = '$telefone', email = '$email', dt_nascimento = '$dtNascimento'";
-		$filter = "cod_paciente = $id";
+		$filter = "cod_paciente = $codPaciente";
 
 		$this->dao->update($values, $filter);
 	}

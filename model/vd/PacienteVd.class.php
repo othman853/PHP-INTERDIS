@@ -2,13 +2,18 @@
 
 class PacienteVd{
 
+	private static $codPaciente;
 	private static $nome;
-	private static $endereco;
-	private static $telefone;
 	private static $email;
+	private static $endereco;
+	private static $telefone;	
 	private static $dtNascimento;
 
 	public static function validar(){
+		if(!isset($_POST['cod_paciente'])){
+			throw new Exception("Erro ao atualizar cadastro");			
+		}
+
 		if(!isset($_POST['nome'])){
 			throw new Exception("Preencha o nome.");
 		}
@@ -33,6 +38,7 @@ class PacienteVd{
 			throw new Exception("Telefone inválido.");			
 		}
 
+		self::$codPaciente  = $_POST['cod_paciente'];
 		self::$nome 		= $_POST['nome'];
 		self::$endereco 	= $_POST['endereco'];
 		self::$telefone 	= $_POST['telefone'];
@@ -51,6 +57,10 @@ class PacienteVd{
 
 		self::$dtNascimento = $dataSql;
 		self::$telefone = strtr(self::$telefone, $normalizador);
+	}
+
+	public static function getCodPaciente(){
+		return self::$codPaciente;
 	}
 
 	public static function getNome(){

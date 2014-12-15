@@ -1,7 +1,7 @@
 -- DROP DATABASE JOHAN_YASSER_INTERDIS;
 start transaction;
 
-CREATE DATABASE JOHAN_YASSER_INTERDIS;
+CREATE DATABASE JOHAN_YASSER_INTERDIS DEFAULT CHARSET='utf8';
 
 USE JOHAN_YASSER_INTERDIS;
 
@@ -12,7 +12,7 @@ senha varchar(100),
 nivel smallint,
 
 constraint PK_USUARIO primary key (cod_usuario)
-);
+)CHARSET='utf8';
 
 CREATE TABLE ADMINISTRADOR(
 cod_admin bigint not null auto_increment,
@@ -21,7 +21,7 @@ cod_usuario bigint,
 
 constraint PK_ADMIN primary key(cod_admin),
 constraint FK_ADMIN_USUARIO foreign key(cod_usuario) references USUARIO(cod_usuario) 
-);
+)CHARSET='utf8';
 
 CREATE TABLE PACIENTE(
 cod_paciente bigint not null auto_increment,
@@ -34,7 +34,7 @@ cod_usuario bigint,
 
 constraint PK_PACIENTE primary key(cod_paciente),
 constraint FK_PACIENTE_USUARIO foreign key (cod_usuario) references USUARIO(cod_usuario)
-);
+)CHARSET='utf8';
 
 CREATE TABLE ATENDENTE(
 	cod_atendente bigint not null auto_increment,
@@ -43,7 +43,7 @@ CREATE TABLE ATENDENTE(
 
 	constraint PK_ATENDENTE primary key (cod_atendente),
 	constraint FK_ATENDENTE_USUARIO foreign key (cod_usuario) references USUARIO(cod_usuario)
-);
+)CHARSET='utf8';
 
 
 CREATE TABLE ESPECIALIDADE_MEDICA(
@@ -51,7 +51,7 @@ cod_espec bigint not null auto_increment,
 descricao varchar(50),
 
 constraint PK_ESPEC_MEDICA primary key(cod_espec)
-);
+)CHARSET='utf8';
 
 CREATE TABLE MEDICO(
 crm bigint not null auto_increment,
@@ -63,7 +63,7 @@ cod_usuario bigint,
 
 constraint PK_MEDICO primary key (crm),
 constraint FK_MEDICO_USUARIO foreign key (cod_usuario) references USUARIO(cod_usuario)
-);
+)CHARSET='utf8';
 
 CREATE TABLE AGENDA(
 crm bigint not null,
@@ -73,7 +73,7 @@ estado tinyint,
 
 constraint PK_AGENDA primary key (crm, dia, hora),
 constraint FK_CRM_AGENDA foreign key (crm) references MEDICO (crm)
-);
+)CHARSET='utf8';
 
 CREATE TABLE ESPEC_MEDICO(
 cod_espec bigint not null,
@@ -81,7 +81,7 @@ crm bigint not null,
 
 constraint FK_CRM_ESPEC_MEDICO foreign key(crm) references MEDICO (crm),
 constraint FK_ESPEC_ESPEC_MEDICO foreign key (cod_espec) references ESPECIALIDADE_MEDICA (cod_espec)
-);
+)CHARSET='utf8';
 
 CREATE TABLE CONSULTA(
 cod_consulta bigint not null auto_increment,
@@ -89,11 +89,12 @@ crm_medico bigint not null,
 cod_paciente bigint not null,
 data_consulta date not null,
 hora_consulta time not null,
+situacao tinyint,
 
-constraint PK_CONSULTa primary key(cod_consulta),
+constraint PK_CONSULTA primary key(cod_consulta),
 constraint FK_CRM_CONSULTA foreign key (crm_medico) references MEDICO (crm),
 constraint FK_COD_PACIENTE_CONSULTA foreign key (cod_paciente) references PACIENTE(cod_paciente)
-);
+)CHARSET='utf8';
 
 CREATE VIEW VW_ESPECIALIDADE_CRM(crm, especialidade) AS
 	SELECT m.crm, e.descricao
@@ -101,11 +102,18 @@ CREATE VIEW VW_ESPECIALIDADE_CRM(crm, especialidade) AS
 	INNER JOIN ESPEC_MEDICO as em on  em.crm = m.crm
 	INNER JOIN ESPECIALIDADE_MEDICA e on e.cod_espec = em.cod_espec;
 
-CREATE VIEW VW_CONSULTA(cod_consulta, nome_medico, nome_paciente, data_consulta, hora_consulta) AS
-	SELECT C.cod_consulta, M.nome, P.nome, C.data_consulta, C.hora_consulta
+CREATE VIEW VW_CONSULTA(cod_consulta, crm, cod_paciente, nome_medico, nome_paciente, data_consulta, hora_consulta, situacao) AS
+	SELECT C.cod_consulta, M.crm, P.cod_paciente, M.nome, P.nome, C.data_consulta, C.hora_consulta, case C.situacao 
+																			 when 0 then "PENDENTE"
+																			 when 1 then "CONFIRMADA"
+																			 when 2 then "CANCELADA"
+																			 END AS 'situacao'
 	FROM CONSULTA C
 	INNER JOIN PACIENTE P ON P.cod_paciente = C.cod_paciente
 	INNER JOIN MEDICO M ON M.crm = C.crm_medico;
+
+
+
     
 CREATE VIEW VW_AGENDA_MEDICO(crm, nome_medico, dia, hora, estado, descricao_estado) AS
 	SELECT A.crm, M.nome, A.dia, A.hora, A.estado, CASE A.estado
@@ -151,20 +159,23 @@ INSERT INTO ESPEC_MEDICO(crm, cod_espec) VALUES(9447,8);
 INSERT INTO AGENDA(crm, dia, hora, estado)
 VALUES 	(1781, '2014-10-10', '10:00:00', 1),
 		(2241, '2015-02-12', '16:00:00', 1),
-		(111,  '2014-09-30', '12:00:00', 0),
-		(3592, '2014-09-30', '13:00:00', 2),
-		(2520, '2014-09-30', '14:00:00', 0),
-		(3698, '2014-09-30', '17:00:00', 2);
+		(111,  '2014-08-24', '12:00:00', 0),
+		(3592, '2015-01-10', '13:00:00', 2),
+		(2520, '2015-03-12', '14:00:00', 0),
+		(111, '2014-09-30', '17:00:00', 2);
 
 INSERT INTO PACIENTE (nome, endereco, telefone, email, dt_nascimento, cod_usuario ) 
-VALUES ('Mohammed Mamebud', 'Av. Assis Brasil, 1568', '5130479896', 'mohammed.mamebud@gmail.com', '1990-09-05', 2);
-
-INSERT INTO PACIENTE (nome, endereco, telefone, email, dt_nascimento, cod_usuario) 
-VALUES ('Najla Rachid', 'Av. Plínio Brasil Milano, 400', '5134589657', 'najla.rachid@gmail.com', '1993-10-04', 2);
+VALUES ('Mohammed Mamebud', 'Av. Assis Brasil, 1568', '5130479896', 'mohammed.mamebud@gmail.com', '1990-09-05', 2),
+	   ('Najla Rachid', 'Av. Plínio Brasil Milano, 400', '5134589657', 'najla.rachid@gmail.com', '1993-10-04', 2),
+	   ('Maria Cardoso', 'Av. Bento Gonçalves, 410', '5134649241', 'maria.cardoso@gmail.com', '1980-10-04', 2);
 
 INSERT INTO ATENDENTE (nome, cod_usuario) VALUES ('Carla Moreira', 3);
 
-INSERT INTO CONSULTA (crm_medico, cod_paciente, data_consulta, hora_consulta)
-VALUES 	(2241, 1, '2014-09-30', '13:00:00'),
-		(3698, 2, '2014-09-30', '17:00:00');
+INSERT INTO CONSULTA (crm_medico, cod_paciente, data_consulta, hora_consulta, situacao)
+VALUES 	(2241, 1, '2014-09-30', '13:00:00', 2),
+		(3698, 2, '2014-09-30', '17:00:00', 0),
+		(111,  3, '2015-02-10', '16:00:00', 1),
+		(1781, 1, '2014-05-30', '13:00:00', 1),
+	    (1781, 1, '2014-05-30', '13:00:00', 1),
+		(3592, 2, '2015-01-20', '15:00:00', 2);
 commit;

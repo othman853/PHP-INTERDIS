@@ -11,6 +11,20 @@
 	
 	<?php include_once '../controller/AgendaCtr.class.php'; ?>
 
+	<?php
+		session_start();
+		if(!isset($_SESSION['usuario'])){
+			session_destroy();
+			header("Location: requisitarLogin.html");
+		}
+
+		if($_SESSION['nivel_usuario'] != 3){
+			session_destroy();
+			header("Location: bloquearAcesso.html");
+		}
+		//session_destroy();
+	?>
+
 	<title>Agenda</title>
 </head>
 <body>
@@ -29,20 +43,16 @@
 			try{
 				$ctr = new AgendaCtr();
 
-				$agendas = $ctr->getLista();
+				$agendas = $ctr->getLista();				
 
-				echo "Try";
-
-				if($agendas != NULL){
-
-					echo "Not null";
+				if($agendas != NULL){					
 
 					foreach($agendas as $agenda){ 
 					?>	
 					<article id="form-wraper">
 						<div class="form-group">
 							<label>Dia:</label>
-							<span class="input"><?php echo $agenda['dia'];?></span>
+							<span class="input dia"><?php echo ViewUtils::converterDataParaPadraoBrasileiro($agenda['dia']);?></span>
 						</div>
 						
 						<div class="form-group">
