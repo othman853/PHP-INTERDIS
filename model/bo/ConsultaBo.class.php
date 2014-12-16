@@ -57,6 +57,19 @@ class ConsultaBo{
 
 		$this->dao->update($fieldValue, $filter);
 	}
+
+	public function confirmar($cod_consulta){
+		$fieldValue = "situacao = 1";
+		$filter= "cod_consulta = " . $cod_consulta;
+
+		$this->dao->update($fieldValue, $filter);
+	}
+
+	public function excluir($cod_consulta){
+		$filter = "cod_consulta = " . $cod_consulta;
+
+		$this->dao->delete($filter);
+	}
 }
 
 ?>

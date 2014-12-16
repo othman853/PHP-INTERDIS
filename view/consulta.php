@@ -73,9 +73,21 @@
 							</div>
 
 							<?php
-							if($_SESSION['nivel_usuario'] == 2 && $consulta['situacao'] != 'CANCELADA'){
+							if($consulta['situacao'] != 'CANCELADA'){
 							?>								
-								<span class="form-component table-column list-button delete"><a href=<?php echo "cancelarConsulta.php?id=" . $consulta['cod_consulta'];?> > Cancelar</a></span>								
+								<span class="form-component table-column list-button delete"><a href=<?php echo "alterarEstadoConsulta.php?id=" . $consulta['cod_consulta'] . "&estado=1";?> > Cancelar</a></span>								
+							<?php
+							}
+
+							if ($consulta['situacao'] == 'PENDENTE'){
+							?>
+								<span class="form-component table-column list-button update"><a href=<?php echo "alterarEstadoConsulta.php?id=" . $consulta['cod_consulta'] . "&estado=2";?> > Confirmar</a></span>								
+							<?php
+							}	
+
+							if ($consulta['situacao'] == 'CANCELADA' && $_SESSION['nivel_usuario'] == 2){
+							?>
+								<span class="form-component table-column list-button delete"><a href=<?php echo "alterarEstadoConsulta.php?id=" . $consulta['cod_consulta'] . "&estado=3";?> > Excluir</a></span>								
 							<?php
 							}	
 							?>
