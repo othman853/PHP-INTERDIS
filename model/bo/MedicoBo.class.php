@@ -44,15 +44,36 @@ class MedicoBo{
 		$this->dao->insert($fields, $values);
 	}
 
-	public function excluir($codMedico) {		
+	public function buscar($crm){
+		$fields = "crm, nome, email, telefone, celular";
+		$filter = "crm = $crm";
+
+		$this->dao->find($fields, $filter);
+
+		return $this->dao->getResultSet();
+	}
+
+	public function excluir($crm) {		
 		
 		$this->genericoDao = new GenericoDao("ESPEC_MEDICO");
 
-		$filter = "crm = $codMedico";
+		$filter = "crm = $crm";
 		
 		$this->genericoDao->delete($filter);
 		$this->dao->delete($filter);
+	}
 
+	public function alterar($crm){
+		$crm 			= MedicoVd::getCrm();
+		$nome 			= MedicoVd::getNome();
+		$email 			= MedicoVd::getEmail();
+		$telefone 		= MedicoVd::getTelefone();
+		$celular 		= MedicoVd::getCelular();		
+
+		$values = "crm = $crm, nome = '$nome', celular= '$celular', telefone = '$telefone', email = '$email', celular = '$celular'";
+		$filter = "crm = $crm";
+
+		$this->dao->update($values, $filter);
 	}
 }
 ?>

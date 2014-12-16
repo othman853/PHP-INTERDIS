@@ -18,11 +18,17 @@ class MedicoCtr{
 	}
 
 	public function alterar(){
+		$this->bo->alterar();
 
+		header("Location: medico.php");
 	}
 
-	public function excluir($codMedico){
-		$this->bo->excluir($codMedico);
+	public function buscar($crm){
+		return $this->bo->buscar($crm);
+	}
+
+	public function excluir($crm){
+		$this->bo->excluir($crm);
 		
 		header("Location: medico.php");
 	}

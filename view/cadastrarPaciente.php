@@ -37,15 +37,7 @@
 	}
 	?>
 		<div id="form-wraper">
-			<?php
-				if(isset($_GET['id'])){
-					$id = $_GET['id'];
-
-					$action = "cadastrarPaciente.php?id=$id";
-				}else{
-					$action = "cadastrarPaciente.php";
-				}
-			?>
+			
 			<form action= "cadastrarPaciente.php" method="POST">	
 				<h1>Cadastrar Paciente</h1>		
 				<?php 

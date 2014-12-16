@@ -72,7 +72,7 @@
 						<span class="input telefone"> <?php echo $medico['telefone'];?> </span>				
 					</div>	
 
-					<span class='form-component table-column list-button update'><a href= <?php echo strtr($medico['nome'], array(" " => "%20"));?> >Alterar</a></span>
+					<span class='form-component table-column list-button update'><a href= <?php echo "cadastrarMedico.php?id=" . $medico['crm'];?> >Alterar</a></span>
 					<span class='form-component table-column list-button delete'><a href= <?php echo "excluirMedico.php?id=" . $medico['crm'];?> >Excluir</a></span>				
 				</article>
 
