@@ -5,6 +5,7 @@
 
 		<?php include_once '../controller/PacienteCtr.class.php';?>
 		<?php include_once '../model/vd/PacienteVd.class.php'; ?>
+		<?php include_once 'ViewUtils.class.php'; ?>
 
 		<link rel="stylesheet" href="css/main.css">
 		<link rel="stylesheet" href="css/cadastro.css">
@@ -46,7 +47,7 @@
 				}
 			?>
 			<form action= "cadastrarPaciente.php" method="POST">	
-				<h1>Cadastrar Paciente </h1>		
+				<h1>Cadastrar Paciente</h1>		
 				<?php 
 					if(isset($_GET['id'])){
 						$id = $_GET['id'];
@@ -55,12 +56,12 @@
 				?>
 				<div class="form-group">
 					<label>Nome:</label>					
-					<input type="text" name="nome" placeholder="Ex: Maria Silva" value=<?php $nome = (isset($_GET['id'])) ? $paciente[0]['nome'] : ""; echo $nome;?> >
+					<input type="text" name="nome" placeholder="Ex: Maria Silva" maxlength="100" value=<?php $nome = (isset($_GET['id'])) ? "'" . $paciente[0]['nome'] . "'": ""; echo $nome;?> >
 				</div>
 
 				<div class="form-group">
 					<label>Endereço:</label>					
-					<input type="text" name="endereco" placeholder="Ex: Av. Beira Rio, 35" value=<?php $endereco = (isset($_GET['id'])) ? $paciente[0]['endereco'] : ""; echo $endereco;?> >
+					<input type="text" name="endereco" placeholder="Ex: Av. Beira Rio, 35" value=<?php $endereco = (isset($_GET['id'])) ? "'" . $paciente[0]['endereco'] . "'": ""; echo $endereco;?> >
 				</div>
 
 				<div class="form-group">
@@ -75,7 +76,7 @@
 
 				<div class="form-group">
 					<label>Data de Nascimento:</label>					
-					<input type="text" class="dt-nascimento" name="dt-nascimento" placeholder="Ex: 09/09/1995" value=<?php $dt_nascimento = (isset($_GET['id'])) ? $paciente[0]['dt_nascimento'] : ""; echo $dt_nascimento;?> >
+					<input type="text" class="dt-nascimento" name="dt-nascimento" placeholder="Ex: 09/09/1995" value=<?php $dt_nascimento = (isset($_GET['id'])) ? ViewUtils::converterDataParaPadraoBrasileiro($paciente[0]['dt_nascimento']) : ""; echo $dt_nascimento;?> >
 				</div>
 
 				<input type="submit" class="button" name="cadastrar" value="Cadastrar" />
