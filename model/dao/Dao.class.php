@@ -19,7 +19,8 @@ abstract class Dao {
 		Connection::connect();
 		
 		//montar o comando sql para gravar
-		$sql = "INSERT INTO $this->tableName ($fields) VALUES ($values)";		
+		$sql = "INSERT INTO $this->tableName ($fields) VALUES ($values)";	
+		echo $sql;	
 	    
 		//comando para executar a query no banco de dados
 		Connection::getConn()->beginTransaction();

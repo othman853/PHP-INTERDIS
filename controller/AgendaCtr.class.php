@@ -14,6 +14,10 @@ class AgendaCtr{
 		return $this->bo->getLista();
 	}
 
+	public function getListaDisponiveis(){
+		return $this->bo->getListaDisponiveis();
+	}
+
 	public function salvar(){
 		$this->bo->salvar();
 		header("Location:agenda.php");

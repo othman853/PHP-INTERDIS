@@ -14,6 +14,10 @@ class ConsultaCtr{
 		return $this->bo->getlista();
 	}
 
+	public function salvar(){
+		$this->bo->salvar();
+	}
+
 }
 
 ?>

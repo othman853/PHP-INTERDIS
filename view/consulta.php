@@ -4,7 +4,9 @@
 	<link rel="stylesheet" href="css/main.css" type="text/css">
 	<link rel="stylesheet" href="css/crud.css" type="text/css">
 	<link rel="stylesheet" href="css/cadastro.css" type="text/css">
+
 	<?php include_once '../controller/ConsultaCtr.class.php'; ?>
+	<?php include_once 'ViewUtils.class.php'; ?>
 
 	<title>Consultas</title>
 
@@ -26,7 +28,7 @@
 </head>
 <body>
 	<header>
-		<form action="novaConsulta.php" method="post">
+		<form action="listarAgenda.php" method="post">
 			<input type="submit" name="adicionar" class="form-component button button-add" value="Nova Consulta"/>
 			<span class="button to-right"><a href="menu.php"> Menu </a></span>			
 			<span class="button to-right"><a href="gerarPdf.php"> Gerar PDF </a></span>
@@ -57,7 +59,7 @@
 							
 							<div class="form-group">
 								<label>Dia:</label>
-								<span class="input"><?php echo $consulta['data_consulta'];?></span>
+								<span class="dia input"><?php echo ViewUtils::converterDataParaPadraoBrasileiro($consulta['data_consulta']);?></span>
 							</div>
 
 							<div class="form-group">
@@ -69,6 +71,14 @@
 								<label>Situação:</label>
 								<span class="input"><?php echo $consulta['situacao'];?></span>
 							</div>
+
+							<?php
+							if($_SESSION['nivel_usuario'] == 2 && $consulta['situacao'] != 'CANCELADA'){
+							?>								
+								<span class="form-component table-column list-button delete"><a href=<?php echo "cancelarConsulta.php?id=" . $consulta['cod_consulta'];?> > Cancelar</a></span>								
+							<?php
+							}	
+							?>
 						</article>		
 		  	<?php 
 					} 

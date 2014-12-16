@@ -17,6 +17,8 @@
 		<link rel="stylesheet" href="css/main.css">
 		<link rel="stylesheet" href="css/cadastro.css">	
 
+		<?php include_once 'ViewUtils.class.php'; ?>
+
 		<?php
 			session_start();
 			if(!isset($_SESSION['usuario'])){
@@ -39,27 +41,27 @@
 		</div>
 
 		<div id="form-wraper">
-			<form action="cadastrarAgenda.php" method="POST">
+			<form action="novaConsulta.php" method="POST">
 				<h1>Nova Consulta </h1>
+
 				<div class="form-group">
 					<label>Dia:</label>
-					<input type="text" class="dia" id="dia" name="dia" placeholder="Ex: 20/05/2014"/>				
+					<input type="text" class="dia" id="dia" name="dia" value=<?php if(isset($_GET['dia'])) echo ViewUtils::converterDataParaPadraoBrasileiro($_GET['dia']); else echo "";?> disabled />
 				</div>
 
 				<div class="form-group">
 					<label>Hora:</label>
-					<input type="text" class="hora" id="hora" name="hora" placeholder="Ex: 14:30:00"/>				
+					<input type="text" class="hora" id="hora" name="hora" value=<?php if(isset($_GET['hora'])) echo $_GET['hora']; else echo ""; ?> disabled />					
 				</div>
 
 				<!-- Se a consulta for marcada por Atendente:--> 
 				<!-- Selecionar Paciente -->				
-
 				<!-- Selecionar Médico -->
-
 				<div class="form-group">
-					<label>Médico:</label>
-					<button id="btn-medico" type="button"> Selecionar Medico </button> 
-					<input type="text" class="crm" id="medico" name="medico" placeholder="CRM"/>
+					<label>Médico:</label>					
+					<input type="text" class="crm" id="crm" name="crm" value=<?php if(isset($_GET['crm'])) echo $_GET['crm']; else echo "";?> disabled/>
+
+					<!--<input type="text" class="dia" id="dia" name="dia" value=<?php echo $_GET['dia']; ?> />-->
 				</div>
 				
 				<input type="submit" class="button" name="cadastrar" value="Marcar"/>

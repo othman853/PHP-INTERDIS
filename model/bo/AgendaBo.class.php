@@ -31,6 +31,19 @@ class AgendaBo{
 		return self::$genericoDao->getResultSet();
 	}
 
+	public function getListaDisponiveis(){
+		if(self::$genericoDao == NULL){
+		 	self::$genericoDao = new GenericoDao("VW_AGENDA_MEDICO");
+		}
+
+		$fields = "crm, nome_medico, dia, hora, estado";
+		$filter = "estado = 0";
+
+		self::$genericoDao->find($fields, $filter);
+			
+		return self::$genericoDao->getResultSet();
+	}
+
 	public function salvar(){
 		$fields = "crm, dia, hora, estado";
 
