@@ -112,9 +112,17 @@ class AgendaBo{
 
 		$documento->appendChild($root);
 
-		$dia = time();		
+		$dia = time();	
 
-		$documento->save("/var/www/html/" . $agendas[0]['crm'] . "_" .  time() .".xml");
+		$nomeArquivo = "view/" . $agendas[0]['crm'] . "_" .  date('dmYHis') .".xml";
+
+		$fp = fopen($nomeArquivo, "w");
+		fwrite($fp, $documento->saveXML());
+		fclose($fp);
+		
+		header("Location: ../view/baixarXml.php?nomeArquivo=$nomeArquivo");
+
+		// echo $documento->save("/var/www/html/" . $agendas[0]['crm'] . "_" .  date('dmYHis') .".xml");
 	}
 }
 ?>

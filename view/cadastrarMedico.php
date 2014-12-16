@@ -5,6 +5,8 @@
 
 		<?php include_once '../controller/MedicoCtr.class.php';?>
 		<?php include_once '../model/vd/MedicoVd.class.php'; ?>
+		<?php include_once 'ViewUtils.class.php'; ?>
+
 		<link rel="stylesheet" href="css/main.css">
 		<link rel="stylesheet" href="css/cadastro.css">
 
@@ -22,6 +24,16 @@
 		?>
 
 	</head>
+
+
+	<?php
+	if(isset($_GET['id'])){
+		$ctr = new PacienteCtr();
+		$paciente = $ctr->buscar($_GET['id']);		
+	}
+	?>
+
+
 	<body>
 		<div id="form-wraper">
 			<form action="cadastrarMedico.php" method="POST">

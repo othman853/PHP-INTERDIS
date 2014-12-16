@@ -25,7 +25,7 @@ class AgendaCtr{
 
 	public function gerarXml(){
 		$this->bo->gerarXml();
-		header("Location:agenda.php");
+		// header("Location:agenda.php");
 	}
 
 }

@@ -10,6 +10,7 @@
 	<script type="text/javascript" src="js/cadastro.js"></script>
 	
 	<?php include_once '../controller/AgendaCtr.class.php'; ?>
+	<?php include_once 'ViewUtils.class.php'; ?>
 
 	<?php
 	session_start();
