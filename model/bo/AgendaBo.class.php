@@ -114,7 +114,7 @@ class AgendaBo{
 
 		$dia = time();	
 
-		$nomeArquivo = "view/" . $agendas[0]['crm'] . "_" .  date('dmYHis') .".xml";
+		$nomeArquivo = "/var/www/html/" . $agendas[0]['crm'] . "_" .  date('dmYHis') .".xml";
 
 		$fp = fopen($nomeArquivo, "w");
 		fwrite($fp, $documento->saveXML());

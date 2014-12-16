@@ -36,8 +36,10 @@ class ConsultaVd{
 			throw new Exception("A hora está em um formato incorreto, utilize: HH:MM");			
 		}
 
-		self::$dia    = $_POST['dia'];
-		self::$hora   = $_POST['hora'];		
+		self::$cod_paciente = $_POST['cod_paciente'];
+		self::$crm 			= $_POST['crm'];
+		self::$dia    		= $_POST['dia'];
+		self::$hora   		= $_POST['hora'];		
 
 		self::normalizarDados();
 
@@ -63,7 +65,7 @@ class ConsultaVd{
 	}
 
 	public static function getDataConsulta(){
-		return self::$data;
+		return self::$dia;
 	}
 
 	public static function getHoraConsulta(){

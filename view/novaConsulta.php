@@ -46,22 +46,27 @@
 
 				<div class="form-group">
 					<label>Dia:</label>
-					<input type="text" class="dia" id="dia" name="dia" value=<?php if(isset($_GET['dia'])) echo ViewUtils::converterDataParaPadraoBrasileiro($_GET['dia']); else echo "";?> disabled />
+					<input type="text" class="dia" id="dia" name="dia" value=<?php if(isset($_GET['dia'])) echo ViewUtils::converterDataParaPadraoBrasileiro($_GET['dia']); else echo "";?> readonly />
 				</div>
 
 				<div class="form-group">
 					<label>Hora:</label>
-					<input type="text" class="hora" id="hora" name="hora" value=<?php if(isset($_GET['hora'])) echo $_GET['hora']; else echo ""; ?> disabled />					
+					<input type="text" class="hora" id="hora" name="hora" value=<?php if(isset($_GET['hora'])) echo $_GET['hora']; else echo ""; ?> readonly />					
 				</div>
 
 				<!-- Se a consulta for marcada por Atendente:--> 
+				<?php
+					if($_SESSION['nivel_usuario'] == 1){
+					?>
+						<input type="hidden" name="cod_paciente" value=<?php echo "'" . $_SESSION['identificacao_usuario']  . "'"; ?> />
+				<?php
+					}
+				?>
 				<!-- Selecionar Paciente -->				
 				<!-- Selecionar Médico -->
 				<div class="form-group">
 					<label>Médico:</label>					
-					<input type="text" class="crm" id="crm" name="crm" value=<?php if(isset($_GET['crm'])) echo $_GET['crm']; else echo "";?> disabled/>
-
-					<!--<input type="text" class="dia" id="dia" name="dia" value=<?php echo $_GET['dia']; ?> />-->
+					<input type="text" class="crm" id="crm" name="crm" value=<?php if(isset($_GET['crm'])) echo $_GET['crm']; else echo "";?> readonly/>					
 				</div>
 				
 				<input type="submit" class="button" name="cadastrar" value="Marcar"/>

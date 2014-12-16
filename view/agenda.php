@@ -82,7 +82,7 @@
 
 					}else if ($agenda['estado'] == 2){								
 						?>
-						<span class='form-component table-column list-button update'>
+						<span class='form-component table-column list-button delete'>
 							<a href= <?php echo "alterarAgenda.php?crm=".$agenda['crm'] . "&hora=" . $agenda['hora'] . "&dia=" . $agenda['dia'] . "&c=100";?> >Excluir</a>									
 						</span>
 						<?php
