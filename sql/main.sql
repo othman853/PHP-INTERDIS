@@ -124,6 +124,21 @@ CREATE VIEW VW_AGENDA_MEDICO(crm, nome_medico, dia, hora, estado, descricao_esta
                                                    END AS "descricao_estado"
 	FROM AGENDA A
 	INNER JOIN MEDICO M ON M.crm = A.CRM;
+
+-- DELIMITER $$
+-- CREATE TRIGGER TG_ATUALIZA_CONSULTA
+-- BEFORE UPDATE ON CONSULTA
+-- FOR EACH ROW 
+-- BEGIN
+-- 		IF NEW.situacao = 0 then
+-- 			update AGENDA SET ESTADO = 1 WHERE dia = OLD.data_consulta  and hora= OLD.hora_consulta and crm = OLD.crm_medico;		
+-- 		ELSEIF NEW.situacao = 1 then 
+-- 			update AGENDA SET ESTADO = 2 WHERE dia = OLD.data_consulta  and hora= OLD.hora_consulta and crm = OLD.crm_medico;
+-- 		ELSEIF NEW.situacao = 2 then 
+-- 			update AGENDA SET ESTADO = 0 WHERE dia = OLD.data_consulta  and hora= OLD.hora_consulta and crm = OLD.crm_medico;
+-- 		END IF;
+-- END;$$
+-- DELIMITER ;
     
 INSERT INTO USUARIO (usuario, senha, nivel) VALUES ('admin', md5('admin'), 0);
 INSERT INTO USUARIO (usuario, senha, nivel) VALUES ('paciente', md5('paciente'), 1);
@@ -156,13 +171,13 @@ INSERT INTO ESPEC_MEDICO(crm, cod_espec) VALUES(2520,4);
 INSERT INTO ESPEC_MEDICO(crm, cod_espec) VALUES(3698,6); 
 INSERT INTO ESPEC_MEDICO(crm, cod_espec) VALUES(9447,8); 
 
-INSERT INTO AGENDA(crm, dia, hora, estado)
-VALUES 	(1781, '2014-10-10', '10:00:00', 1),
-		(2241, '2015-02-12', '16:00:00', 1),
-		(111,  '2014-08-24', '12:00:00', 0),
-		(3592, '2015-01-10', '13:00:00', 2),
-		(2520, '2015-03-12', '14:00:00', 0),
-		(111, '2014-09-30', '17:00:00', 2);
+-- INSERT INTO AGENDA(crm, dia, hora, estado)
+-- VALUES 	(1781, '2014-10-10', '10:00:00', 1),
+-- 		(2241, '2015-02-12', '16:00:00', 1),
+-- 		(111,  '2014-08-24', '12:00:00', 0),
+-- 		(3592, '2015-01-10', '13:00:00', 2),
+-- 		(2520, '2015-03-12', '14:00:00', 0),
+-- 		(111, '2014-09-30', '17:00:00', 2);
 
 INSERT INTO PACIENTE (nome, endereco, telefone, email, dt_nascimento, cod_usuario ) 
 VALUES ('Mohammed Mamebud', 'Av. Assis Brasil, 1568', '5130479896', 'mohammed.mamebud@gmail.com', '1990-09-05', 2),
@@ -171,11 +186,26 @@ VALUES ('Mohammed Mamebud', 'Av. Assis Brasil, 1568', '5130479896', 'mohammed.ma
 
 INSERT INTO ATENDENTE (nome, cod_usuario) VALUES ('Carla Moreira', 3);
 
-INSERT INTO CONSULTA (crm_medico, cod_paciente, data_consulta, hora_consulta, situacao)
-VALUES 	(2241, 1, '2014-09-30', '13:00:00', 2),
-		(3698, 2, '2014-09-30', '17:00:00', 0),
-		(111,  3, '2015-02-10', '16:00:00', 1),
-		(1781, 1, '2014-05-30', '13:00:00', 1),
-	    (1781, 1, '2014-05-30', '13:00:00', 1),
-		(3592, 2, '2015-01-20', '15:00:00', 2);
+-- INSERT INTO CONSULTA (crm_medico, cod_paciente, data_consulta, hora_consulta, situacao)
+-- VALUES 	(2241, 1, '2014-09-30', '13:00:00', 2),
+-- 		(3698, 2, '2014-09-30', '17:00:00', 0),
+-- 		(111,  3, '2015-02-10', '16:00:00', 1),
+-- 		(1781, 1, '2014-05-30', '13:00:00', 1),
+-- 	    (1781, 1, '2014-05-30', '13:00:00', 1),
+-- 		(3592, 2, '2015-01-20', '15:00:00', 2);
+
+-- registros para teste de alteracoes
+
+insert into AGENDA (crm, dia, hora, estado)
+values (111, '2014-12-17', '17:00:00', 1);
+
+insert into CONSULTA (crm_medico, cod_paciente, data_consulta, hora_consulta, situacao)
+values (111, 1, '2014-12-17', '17:00:00', 0);
+
 commit;
+
+ select cod_consulta, situacao as 'SITUACAO CONSULTA', estado as 'ESTADO AGENDA'
+ from AGENDA 
+ INNER JOIN CONSULTA on data_consulta = dia and
+   						hora_consulta = hora and
+   						crm_medico = crm

@@ -59,23 +59,20 @@ class ConsultaBo{
 		$agendaDao->update($fieldValue, $filter);
 	}
 
-	public function cancelar($cod_consulta){
-		$fieldValue = "situacao = 2";
-		$filter= "cod_consulta = " . $cod_consulta;
-
+	public function cancelar($cod_consulta){		
+		$fieldValueConsulta = "situacao = 2";
+		$filterConsulta     = "cod_consulta = " . $cod_consulta;
 		
 		$fieldsConsulta = "crm_medico, data_consulta, hora_consulta";		
-		$this->dao->find($fieldsConsulta, $filter);
-
+		$this->dao->find($fieldsConsulta, $filterConsulta);
 		$consulta = $this->dao->getResultSet();
 
 		$agendaDao = new GenericoDao("AGENDA");
+		$fieldValueAgenda = "estado = 0";
+		$filterAgenda	    = "crm = ". $consulta[0]['crm_medico'] . " AND dia = '" .  $consulta[0]['data_consulta'] . "' AND hora = '" . $consulta[0]['hora_consulta'] . "'";
 
-		$fieldValue = "estado = 0";
-		$filter	    = "crm = ". $consulta[0]['crm_medico'] . " AND dia = '" .  $consulta[0]['data_consulta'] . "' AND hora = '" . $consulta[0]['hora_consulta'] . "'";
-
-		$this->dao->update($fieldValue, $filter);
-		$agendaDao->update($fieldValue, $filter);				
+		$this->dao->update($fieldValueConsulta, $filterConsulta);
+		$agendaDao->update($fieldValueAgenda, $filterAgenda);				
 	}
 
 	public function confirmar($cod_consulta){

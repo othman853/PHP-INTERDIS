@@ -10,7 +10,7 @@ if(isset($_GET['dia']) && isset($_GET['hora'])){
 
 	$bo->alterarEstado($dia, $hora, $estado);
 
-	header("Location:agenda.php");
+	// header("Location:agenda.php");
 	
 }
 ?>

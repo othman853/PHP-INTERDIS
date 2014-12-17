@@ -62,9 +62,9 @@ class AgendaBo{
 		$crm = $_SESSION['identificacao_usuario'];				
 
 		
-		$field = "estado = $estado";		
+		$fieldValueAgenda = "estado = $estado";		
 
-		$filter = "crm  = $crm  AND ".
+		$filterAgenda = "crm  = $crm  AND ".
 				  "dia  = '" . $dia . "' AND ".
 				  "hora = '" . $hora . "'";
 
@@ -72,8 +72,16 @@ class AgendaBo{
 	   		$this->dao->delete($filter);			
 	   	}
 
-	   	else{			
-		 	$this->dao->update($field, $filter);
+	   	else{
+	   		$situacao = ($estado == 3)? 2 : 0;
+
+	   		$fieldValueConsulta = "situacao = $situacao";
+	   		$filterConsulta = "data_consulta = '$dia' AND hora_consulta = '$hora' AND crm_medico = $crm";
+
+	   		$consultaDao = new GenericoDao("CONSULTA");
+
+	   		$consultaDao->update($fieldValueConsulta, $filterConsulta);
+		 	$this->dao->update($fieldValueAgenda, $filterAgenda);
 	   	}		
 	}
 
