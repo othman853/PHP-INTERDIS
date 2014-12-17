@@ -1,0 +1,14 @@
+#dialog{
+	background-color: #34495e;
+}
+
+.form-group .choose-button{
+	text-align: center;
+}
+	/*#dialog label{
+		background-color: blue;
+		color: green;
+		display: block;
+		width: 250px;
+		font-size: 25px;
+	}*/

@@ -6,11 +6,12 @@ include_once '../model/vd/ConsultaVd.class.php';
 class ConsultaBo{
 
 	private $dao;
-	private $genericoDao;
+	private $genericoDao;	
 
 	public function __construct(){
 		$this->dao = new ConsultaDao();
 		$this->genericoDao = new GenericoDao("VW_CONSULTA");
+
 		
 		if(session_status() == PHP_SESSION_NONE){
     		session_start();	    	
@@ -39,23 +40,44 @@ class ConsultaBo{
 	}
 
 	public function salvar(){
-		$fields = "crm_medico, cod_paciente, data_consulta, hora_consulta";
+		$fields = "crm_medico, cod_paciente, data_consulta, hora_consulta, situacao";
 
 		$crm  		  = ConsultaVd::getCrm();
 		$codPaciente  = ConsultaVd::getCodPaciente();
 		$dataConsulta = ConsultaVd::getDataConsulta();
 		$horaConsulta = ConsultaVd::getHoraConsulta();
 
-		$values = $crm . ", " . $codPaciente . ", '" . $dataConsulta ."', '" . $horaConsulta . "'";
+		$values = $crm . ", " . $codPaciente . ", '" . $dataConsulta ."', '" . $horaConsulta . "', 0"  ;
 
 		$this->dao->insert($fields, $values);
+
+		$agendaDao = new GenericoDao("AGENDA");
+
+		$fieldValue = "estado = 1";
+		$filter	    = "crm = $crm AND dia = $data_consulta AND hora = $hora_consulta";
+
+		$agenda->update($fieldValue, $filter);
 	}
 
 	public function cancelar($cod_consulta){
 		$fieldValue = "situacao = 2";
 		$filter= "cod_consulta = " . $cod_consulta;
 
-		$this->dao->update($fieldValue, $filter);
+		
+		$fieldsConsulta = "crm_medico, data_consulta, hora_consulta";		
+		$this->dao->find($fieldsConsulta, $filter);
+
+		$consulta = $this->dao->getResultSet();
+
+		$agendaDao = new GenericoDao("AGENDA");
+
+		$fieldValue = "estado = 0";
+		$filter	    = "crm = ". $consulta[0]['crm_medico'] . "AND dia = " .  $consulta['data_consulta'] . " AND hora = " . $consulta[0]['hora_consulta'];
+
+		$agenda->update($fieldValue, $filter);
+
+
+		$this->dao->update($fieldValue, $filter);		
 	}
 
 	public function confirmar($cod_consulta){
@@ -63,6 +85,18 @@ class ConsultaBo{
 		$filter= "cod_consulta = " . $cod_consulta;
 
 		$this->dao->update($fieldValue, $filter);
+
+		$fieldsConsulta = "crm_medico, data_consulta, hora_consulta";		
+		$this->dao->find($fieldsConsulta, $filter);
+
+		$consulta = $this->dao->getResultSet();
+
+		$agendaDao = new GenericoDao("AGENDA");
+
+		$fieldValue = "estado = 2";
+		$filter	    = "crm = ". $consulta[0]['crm_medico'] . "AND dia = " .  $consulta['data_consulta'] . " AND hora = " . $consulta[0]['hora_consulta'];
+
+		$agenda->update($fieldValue, $filter);
 	}
 
 	public function excluir($cod_consulta){

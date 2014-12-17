@@ -179,3 +179,9 @@ VALUES 	(2241, 1, '2014-09-30', '13:00:00', 2),
 	    (1781, 1, '2014-05-30', '13:00:00', 1),
 		(3592, 2, '2015-01-20', '15:00:00', 2);
 commit;
+
+select * from CONSULTA;
+
+select * FROM AGENDA WHERE crm = 111
+
+insert into AGENDA(crm, dia, hora, estado) values (111, '2015-02-10', '16:00:00', 2)

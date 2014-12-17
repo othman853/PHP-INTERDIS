@@ -20,7 +20,6 @@ abstract class Dao {
 		
 		//montar o comando sql para gravar
 		$sql = "INSERT INTO $this->tableName ($fields) VALUES ($values)";	
-		echo $sql;	
 	    
 		//comando para executar a query no banco de dados
 		Connection::getConn()->beginTransaction();
@@ -117,7 +116,7 @@ abstract class Dao {
 		}
 
 		//montar o comando sql para CONSULTA
-		$sql = "SELECT $columns FROM $this->tableName $filter";		
+		$sql = "SELECT $columns FROM $this->tableName $filter";				
 		
 		$this->rs = Connection::getConn()->query($sql);
 		

@@ -16,6 +16,8 @@ class ConsultaCtr{
 
 	public function salvar(){
 		$this->bo->salvar();
+
+		header("Location: consulta.php");
 	}
 
 }

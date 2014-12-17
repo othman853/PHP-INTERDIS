@@ -15,7 +15,9 @@
 
 		<link rel="stylesheet" href="css/jquery-ui.css">
 		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/crud.css" type="text/css">
 		<link rel="stylesheet" href="css/cadastro.css">	
+		<link rel="stylesheet" href="css/consulta.css">	
 
 		<?php include_once 'ViewUtils.class.php'; ?>
 
@@ -54,16 +56,26 @@
 					<input type="text" class="hora" id="hora" name="hora" value=<?php if(isset($_GET['hora'])) echo $_GET['hora']; else echo ""; ?> readonly />					
 				</div>
 
-				<!-- Se a consulta for marcada por Atendente:--> 
+				<!-- Se a consulta for marcada por Paciente:--> 
 				<?php
 					if($_SESSION['nivel_usuario'] == 1){
 					?>
-						<input type="hidden" name="cod_paciente" value=<?php echo "'" . $_SESSION['identificacao_usuario']  . "'"; ?> />
+						<input type="hidden" id="cod-paciente" name="cod_paciente" value=<?php echo "'" . $_SESSION['identificacao_usuario']  . "'"; ?> />
 				<?php
 					}
 				?>
-				<!-- Selecionar Paciente -->				
-				<!-- Selecionar Médico -->
+								
+				<?php
+					if($_SESSION['nivel_usuario'] == 2){
+					?>
+						<div class="form-group">				
+							<label class="choose-button list-button update" id="btn-paciente">Selecionar Paciente</label>
+							<input type="text" id="cod-paciente" name="cod_paciente" readonly value = "Clique no botão ao lado para escolher o paciente ">
+						</div>
+				<?php
+					}
+				?>
+
 				<div class="form-group">
 					<label>Médico:</label>					
 					<input type="text" class="crm" id="crm" name="crm" value=<?php if(isset($_GET['crm'])) echo $_GET['crm']; else echo "";?> readonly/>					

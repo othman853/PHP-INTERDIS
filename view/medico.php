@@ -49,27 +49,27 @@
 
 					<div class="form-group">
 						<label>CRM:</label>
-						<span class="input"> <?php echo $medico['crm'];?> </span>				
+						<span class="input crm"><?php echo $medico['crm'];?></span>				
 					</div>
 
 					<div class="form-group">
 						<label>Nome:</label>
-						<span class="input"> <?php echo $medico['nome'];?> </span>				
+						<span class="input"><?php echo $medico['nome'];?></span>				
 					</div>
 
 					<div class="form-group">
 						<label>Email:</label>
-						<span class="input"> <?php echo $medico['email'];?> </span>				
+						<span class="input"><?php echo $medico['email'];?></span>				
 					</div>
 
 					<div class="form-group">
 						<label>Celular:</label>
-						<span class="input"> <?php echo $medico['celular'];?> </span>				
+						<span class="input celular"><?php echo $medico['celular'];?></span>				
 					</div>
 
 					<div class="form-group">
 						<label>Telefone:</label>
-						<span class="input telefone"> <?php echo $medico['telefone'];?> </span>				
+						<span id="telefone" class="input telefone"><?php echo $medico['telefone'];?></span>							
 					</div>	
 
 					<span class='form-component table-column list-button update'><a href= <?php echo "cadastrarMedico.php?id=" . $medico['crm'];?> >Alterar</a></span>

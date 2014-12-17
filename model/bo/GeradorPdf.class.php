@@ -78,7 +78,7 @@ class GeradorDePdf{
 		$filter = "cod_consulta = $codConsulta";
 
 		if($_SESSION['nivel_usuario'] == 3){
-			$filter = " AND crm = " . $_SESSION['identificacao_usuario'];
+			$filter = $filter . " AND crm = " . $_SESSION['identificacao_usuario'];
 		}		
 
 		$fields = "nome_paciente, data_consulta, hora_consulta, situacao";

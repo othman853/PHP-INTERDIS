@@ -1,7 +1,5 @@
 $(document).ready(function(){
 
-	// var modal = $("#dialog").dialog();
-
 	$("#dialog").dialog(
 	{
 		autoOpen: false,
@@ -14,7 +12,7 @@ $(document).ready(function(){
 			},
 
 			"Selecionar Médico": function(){
-				$("#medico").val("1");
+				$("#cod-paciente").val($('.dialog-paciente').html());				
 				$(this).dialog("close");
 			}
 		},
@@ -25,29 +23,19 @@ $(document).ready(function(){
 		}				
 	});		
 
-	$("#btn-medico").on("click", function(e) {
-		e.preventDefault();
-
+	var abreDialog = function(){		
 		$("#dialog").html("");
 
 		$("#dialog").dialog("option", "title", "Loading...").dialog("open");
 
-		$("#dialog").load("bloquearAcesso.html", function() {
+		$("#dialog").load("listarPacientes.php", function() {
 			$(this).dialog("option", "title", $(this).find("h1").text());
 			$(this).find("h1").remove();
 		});
-	});
+	}
 
-	// open: function(event, ui)
-	// 	{
-	// 		var textarea = $('<textarea style="height: 276px;">');
-	// 		$(textarea).redactor({
-	// 			focus: true,
-	// 			maxHeight: 300,
-	// 			initCallback: function()
-	// 			{
-	// 				this.code.set('<p>Lorem...</p>');
-	// 			}
-	// 		});
-	// 	}	
+	$("#btn-paciente").on("click", function(e) {
+		e.preventDefault();		
+		abreDialog();		
+	});	
 });

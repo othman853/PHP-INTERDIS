@@ -10,10 +10,6 @@ class PacienteVd{
 	private static $dtNascimento;
 
 	public static function validar(){
-		if(!isset($_POST['cod_paciente'])){
-			throw new Exception("Erro ao atualizar cadastro");			
-		}
-
 		if(!isset($_POST['nome'])){
 			throw new Exception("Preencha o nome.");
 		}
