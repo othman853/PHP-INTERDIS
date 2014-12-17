@@ -56,7 +56,7 @@ class ConsultaBo{
 		$fieldValue = "estado = 1";
 		$filter	    = "crm = $crm AND dia = $data_consulta AND hora = $hora_consulta";
 
-		$agenda->update($fieldValue, $filter);
+		$agendaDao->update($fieldValue, $filter);
 	}
 
 	public function cancelar($cod_consulta){
@@ -72,12 +72,10 @@ class ConsultaBo{
 		$agendaDao = new GenericoDao("AGENDA");
 
 		$fieldValue = "estado = 0";
-		$filter	    = "crm = ". $consulta[0]['crm_medico'] . "AND dia = " .  $consulta['data_consulta'] . " AND hora = " . $consulta[0]['hora_consulta'];
+		$filter	    = "crm = ". $consulta[0]['crm_medico'] . " AND dia = '" .  $consulta[0]['data_consulta'] . "' AND hora = '" . $consulta[0]['hora_consulta'] . "'";
 
-		$agenda->update($fieldValue, $filter);
-
-
-		$this->dao->update($fieldValue, $filter);		
+		$this->dao->update($fieldValue, $filter);
+		$agendaDao->update($fieldValue, $filter);				
 	}
 
 	public function confirmar($cod_consulta){
@@ -96,7 +94,7 @@ class ConsultaBo{
 		$fieldValue = "estado = 2";
 		$filter	    = "crm = ". $consulta[0]['crm_medico'] . "AND dia = " .  $consulta['data_consulta'] . " AND hora = " . $consulta[0]['hora_consulta'];
 
-		$agenda->update($fieldValue, $filter);
+		$agendaDao->update($fieldValue, $filter);
 	}
 
 	public function excluir($cod_consulta){

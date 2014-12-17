@@ -37,5 +37,5 @@ $(document).ready(function(){
 	$("#btn-paciente").on("click", function(e) {
 		e.preventDefault();		
 		abreDialog();		
-	});	
+	});		
 });

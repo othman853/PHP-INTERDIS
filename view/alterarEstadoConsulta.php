@@ -21,6 +21,6 @@ else if ($estado == 3){
 
 
 
-header("Location: consulta.php");
+// header("Location: consulta.php");
 
 ?>

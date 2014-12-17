@@ -52,7 +52,8 @@ abstract class Dao {
 		}
 
 		//montar o comando sql para gravar
-		$sql = "UPDATE $this->tableName SET $fieldsValues $filter";		
+		$sql = "UPDATE $this->tableName SET $fieldsValues $filter";	
+		echo $sql;	
 		
 		//comando para executar a query no banco de dados
 		Connection::getConn()->beginTransaction();
