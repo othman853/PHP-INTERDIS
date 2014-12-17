@@ -31,7 +31,7 @@
 		<form action="listarAgenda.php" method="post">
 			<input type="submit" name="adicionar" class="form-component button button-add" value="Nova Consulta"/>
 			<span class="button to-right"><a href="menu.php"> Menu </a></span>			
-			<span class="button to-right"><a href="gerarPdf.php"> Gerar PDF </a></span>
+			<!-- <span class="button to-right"><a href="gerarPdf.php"> Gerar PDF </a></span> -->
 		</form>				
 	</header>			
 	
@@ -91,6 +91,8 @@
 							<?php
 							}	
 							?>
+
+							<span class="form-component table-column list-button update"><a href=<?php echo "gerarPdf.php?id=" . $consulta['cod_consulta'];?> > Gerar PDF </a></span>
 						</article>		
 		  	<?php 
 					} 

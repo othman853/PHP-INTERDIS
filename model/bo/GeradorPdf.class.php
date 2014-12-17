@@ -1,5 +1,6 @@
 <?php
 include_once '../model/dao/GenericoDao.class.php';
+include_once 'ViewUtils.class.php';
 
 class GeradorDePdf{
 
@@ -15,7 +16,7 @@ class GeradorDePdf{
 
 	// W -> 595.28
 	// H -> 841.89		
-	public static function gerar(){				
+	public static function gerar($codConsulta){				
 		self::inicializar();
 
 		$tamanhoCelula = 0;
@@ -30,7 +31,7 @@ class GeradorDePdf{
 
 		self::novaPagina();		
 
-		$consultas = self::buscarDados();
+		$consultas = self::buscarDados($codConsulta);
 		
 		foreach ($consultas as $consulta) {	
 
@@ -69,16 +70,16 @@ class GeradorDePdf{
 		self::$x = 10;
 	}
 
-	private static function buscarDados(){
+	private static function buscarDados($codConsulta){
 		if(self::$dao == NULL){
 			self::$dao = new GenericoDao("VW_CONSULTA");
 		}
 
-		$filter = "";
+		$filter = "cod_consulta = $codConsulta";
 
 		if($_SESSION['nivel_usuario'] == 3){
-			$filter = "crm = " . $_SESSION['identificacao_usuario'];
-		}
+			$filter = " AND crm = " . $_SESSION['identificacao_usuario'];
+		}		
 
 		$fields = "nome_paciente, data_consulta, hora_consulta, situacao";
 
@@ -128,7 +129,7 @@ class GeradorDePdf{
 			$alturaRetangulo += 20;
 		}
 
-		self::escreverLinha(self::$x, self::$y, $largura, "Data", $consulta['data_consulta']);
+		self::escreverLinha(self::$x, self::$y, $largura, "Data", ViewUtils::converterDataParaPadraoBrasileiro($consulta['data_consulta']));
 		self::$y += 20;				
 		$alturaRetangulo += 20;		
 

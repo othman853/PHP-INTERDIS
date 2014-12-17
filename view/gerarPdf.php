@@ -2,6 +2,7 @@
 
 include_once '../model/bo/GeradorPdf.class.php';
 
-GeradorDePdf::gerar();
-
+if(isset($_GET['id'])){
+	GeradorDePdf::gerar($_GET['id']);
+}
 ?>
